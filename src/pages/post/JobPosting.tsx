@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import JobContents from '../../components/post/posting/JobContents'
 import TSKContents from '../../components/post/posting/TSKContents'
@@ -10,9 +10,27 @@ const JobPosting: React.FC = () => {
     // 직무/TSK 선택 버튼 상태 관리
     const { selectedButton, setSelectedButton } = useJobTSKButtonStore();
 
+    const [postingData, setPostingData] = useState({
+        title: '',
+        isJob: selectedButton,
+        jobTskContentsId: '',
+        etcContents: '',
+        analyzeResult: ''
+    })
+
+    // 선택된 직무/TSK 내용 저장
+    const handleJobTskContents = (jobTskContents: string) => {
+        setPostingData({...postingData, jobTskContentsId: jobTskContents});
+    }
+
     // 공고 등록 버튼
     const handlePostingButton = () => {
-        console.log('posting button clicked');
+        try{
+            console.log('postingData', postingData);
+        }
+        catch (e){
+            console.error(e, '공고 등록 실패')
+        }
     }
 
     // 공고 취소 버튼 - 취소 시 이전 화면으로 이동 or 이전화면이 없을 시 메인화면으로 이동
@@ -33,7 +51,9 @@ const JobPosting: React.FC = () => {
                 {/* 공고 제목 입력 창 */}
                 <div className="posting-title-wrapper">
                     <label htmlFor="posting-title">공고 제목</label>
-                    <input id="posting-title" type="text" />
+                    <input id="posting-title" type="text" 
+                        onChange={(e) => setPostingData({...postingData, title: e.target.value})}
+                    />
                 </div>
                 {/* 직무/TSK 선택 버튼 */}
                 <div className='job-tsk-select-button-wrapper'>
@@ -42,18 +62,24 @@ const JobPosting: React.FC = () => {
                 </div>
                 {/* 직무/TSK 선택 컴포넌트 - 버튼에 따라 다른 표시*/}
                 <div className='job-tsk-contents-container'>
-                    {selectedButton === "tsk" ? <TSKContents /> : <JobContents />}
+                    {selectedButton === "tsk" ? <TSKContents /> : <JobContents onJobSelected={handleJobTskContents} />}
                 </div>
                 {/* 기타 공고 내용 - 기타 공고에 필요한 내용 */}
                 <div className="etc-contents-container">
                     <div className="etc-contents-wrapper">
                         <label htmlFor="posting-etc-contents">기타 내용</label>
-                        <textarea id="posting-etc-contents" />
+                        <textarea id="posting-etc-contents" 
+                            onChange={(e) => setPostingData({...postingData, etcContents: e.target.value})}                        
+                        />
                     </div>
                 </div>
                 {/* 분석결과 - tsk 를 선택했을 때만 표시 */}
                 <div className="analyze-result-container">
-                    {selectedButton === "tsk" ? <></> : <></>}
+                    {selectedButton === "tsk" ? 
+                    <div className="analyze-result">
+                        분석결과계산컴포넌트
+                    </div>
+                    : <></>}
                 </div>
 
                 {/* 공고 등록/취소 버튼 */}

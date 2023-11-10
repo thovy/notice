@@ -1,47 +1,32 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { dummyJob } from './dummyJob'
 import { useTSKContentsButtonStore } from '../../../store/post/TSKContentsButtonStore'
+import JobContentsList from './JobContentsList';
 
-const JobContents: React.FC = () => {
+const JobContents: React.FC<any> = ({ onJobSelected }) => {
 
+    // 직무(job) 선택 드롭 다운 메뉴, 선택된 직무(job)에 대한 tsk 출력
     const { selectedJobContents, selectedItemType, selectJobContents, selectItemType } = useTSKContentsButtonStore();
 
-    const renderItems = () => {
-        if (!selectedJobContents || !selectedItemType) return null;
-    
-        switch (selectedItemType) {
-          case 'tasks':
-            return (
-              <ul>
-                {selectedJobContents.tasks.map((task) => (
-                  <li key={task.id}>{task.title}</li>
-                ))}
-              </ul>
-            );
-          case 'skills':
-            return (
-              <ul>
-                {selectedJobContents.tasks.flatMap((task) =>
-                  task.skills.map((skill) => (
-                    <li key={skill.id}>{skill.title}</li>
-                  ))
-                )}
-              </ul>
-            );
-          case 'knowledges':
-            return (
-              <ul>
-                {selectedJobContents.tasks.flatMap((task) =>
-                  task.knowledges.map((knowledge) => (
-                    <li key={knowledge.id}>{knowledge.title}</li>
-                  ))
-                )}
-              </ul>
-            );
-          default:
-            return null;
+    const [selectedJob, setSelectedJob] = useState<any>();
+
+    const contents = useMemo(() => {
+        if (!selectedJobContents) return [];
+        if (selectedItemType === 'tasks') {
+            return selectedJobContents.tasks;
         }
-      };
+        if (selectedItemType === 'skills') {
+            return selectedJobContents.tasks.flatMap((task) => task.skills)
+        }
+        if (selectedItemType === 'knowledges') {
+            return  selectedJobContents.tasks.flatMap((task) => task.knowledges)
+        }
+        return [];
+    }, [selectedJobContents, selectedItemType]);
+
+    const handleJobselect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        onJobSelected(Number(e.target.value) + 1);
+    }
 
   return (
     <>
@@ -49,15 +34,19 @@ const JobContents: React.FC = () => {
         <div className="job-drop-down-wrapper">
             <select 
                 className='job-drop-down'
-                onChange={(e) => selectJobContents(dummyJob[Number(e.target.value)])}
+                onChange={(e) => 
+                    {
+                        selectJobContents(dummyJob[Number(e.target.value)])
+                        handleJobselect(e)
+                    }
+                }
             >
-                <option value={-1}>직무를 선택해주세요.</option>
+                <option value={-1} >직무를 선택해주세요.</option>
                 {dummyJob.map((jobContent:any, index:any) => (
                     <option key={jobContent.id} value={index}>
                         {jobContent.title}
                     </option>
-                    
-                    ))}
+                ))}
             </select>
         </div>
 
@@ -67,7 +56,7 @@ const JobContents: React.FC = () => {
                 <p>{selectedJobContents.description}</p>
             }
         </div>
-        
+
         {/* 선택된 직무에 속한 task/skill/knowledge */}
         <div className="job-tsk-container">
             <div className="tsk-button-container">
@@ -76,7 +65,11 @@ const JobContents: React.FC = () => {
                 <button onClick={() => selectItemType('skills')}>Skill</button>
             </div>
             <div className="tsk-list-wrapper">
-                {renderItems()}
+                {selectedJobContents && (
+                    <JobContentsList
+                        items = {contents}
+                    />
+                )}
             </div>
         </div>
     </>
