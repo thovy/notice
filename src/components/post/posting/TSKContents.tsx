@@ -58,82 +58,89 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
         <button onClick={() => setSelectedItemType('skills')}>Skill</button>
       </div>
 
-      {/* 선택한 항목 리스트 */}
-      <div className="selected-contents">
-        {/* 리스트 제목 */}
-        <h1>SELECTED {selectedItemType.toUpperCase()}</h1>
-        {/* 리스트 테이블 */}
-        <table>
-          <tbody className="selected-list">
-            {(selectedTSK[selectedItemType] || []).map((id: number) => (
-              <tr key={id}>
-                <td>
-                  <input
-                    type='checkbox'
-                    checked={(selectedTSK[selectedItemType] || []).includes(id)}
-                    onChange={(e) => {
-                      const currentSelection = selectedTSK[selectedItemType];
-                      // 선택된 개체들
-                      if (e.target.checked) {
-                        setSelectedTSK({
-                          ...selectedTSK,
-                          [selectedItemType]: Array.isArray(currentSelection)
-                            ? [...currentSelection, id]
-                            : [id]
-                        });
-                      } else {
-                        // 선택 취소
-                        setSelectedTSK({
-                          ...selectedTSK,
-                          [selectedItemType]: Array.isArray(currentSelection)
-                            ? currentSelection.filter(currentId => currentId !== id)
-                            : []
-                        });
-                      }
-                    }}
-                  />
-                </td>
-                <td>{id}</td>
-                <td>{contents.find((content) => content.id === id)?.title}</td>
-                <td>{contents.find((content) => content.id === id)?.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* 항목 리스트 컨테이너 */}
+      <div className="tsk-list-container">
+        {/* 선택된 항목 리스트 */}
+        <div className="tsk-list-wrapper">
+          <div className="selected-contents">
+            {/* 리스트 제목 */}
+            <h1>SELECTED {selectedItemType.toUpperCase()}</h1>
+            {/* 리스트 테이블 */}
+            <table>
+              <tbody className="selected-list">
+                {(selectedTSK[selectedItemType] || []).map((id: number) => (
+                  <tr key={id}>
+                    <td>
+                      <input
+                        type='checkbox'
+                        checked={(selectedTSK[selectedItemType] || []).includes(id)}
+                        onChange={(e) => {
+                          const currentSelection = selectedTSK[selectedItemType];
+                          // 선택된 개체들
+                          if (e.target.checked) {
+                            setSelectedTSK({
+                              ...selectedTSK,
+                              [selectedItemType]: Array.isArray(currentSelection)
+                                ? [...currentSelection, id]
+                                : [id]
+                            });
+                          } else {
+                            // 선택 취소
+                            setSelectedTSK({
+                              ...selectedTSK,
+                              [selectedItemType]: Array.isArray(currentSelection)
+                                ? currentSelection.filter(currentId => currentId !== id)
+                                : []
+                            });
+                          }
+                        }}
+                      />
+                    </td>
+                    <td>{id}</td>
+                    <td>{contents.find((content) => content.id === id)?.title}</td>
+                    <td>{contents.find((content) => content.id === id)?.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      {/* 선택되지 않은 항목 리스트 */}
-      <div className="unselected-contents">
-        {/* 리스트 제목 */}
-        <h1>UNSELECTED {selectedItemType.toUpperCase()}</h1>
-        {/* 리스트 테이블 */}
-        <table>
-          <tbody className="unselected-list">
-            {unselectedTSK.map((content) => (
-              <tr key={content.id}>
-                <td>
-                  <input type='checkbox'
-                    checked={(selectedTSK[selectedItemType] || []).includes(content.id)}
-                    onChange={(e) => {
-                      const currentSelection = selectedTSK[selectedItemType];
-                      if (e.target.checked) {
-                        setSelectedTSK({
-                          ...selectedTSK,
-                          [selectedItemType]: Array.isArray(currentSelection)
-                            ? [...currentSelection, content.id]
-                            : [content.id]
-                        });
-                      }
-                    }}
-                  />
-                </td>
-                <td>{content.id}</td>
-                <td>{content.title}</td>
-                <td>{content.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* 선택되지 않은 항목 리스트 */}
+        <div className="tsk-list-wrapper">
+          <div className="unselected-contents">
+            {/* 리스트 제목 */}
+            <h1>UNSELECTED {selectedItemType.toUpperCase()}</h1>
+            {/* 리스트 테이블 */}
+              <table>
+                <tbody className="unselected-list">
+                  {unselectedTSK.map((content) => (
+                    <tr key={content.id}>
+                      <td>
+                        <input type='checkbox'
+                          checked={(selectedTSK[selectedItemType] || []).includes(content.id)}
+                          onChange={(e) => {
+                            const currentSelection = selectedTSK[selectedItemType];
+                            if (e.target.checked) {
+                              setSelectedTSK({
+                                ...selectedTSK,
+                                [selectedItemType]: Array.isArray(currentSelection)
+                                ? [...currentSelection, content.id]
+                                : [content.id]
+                              });
+                            }
+                          }}
+                          />
+                      </td>
+                      <td>{content.id}</td>
+                      <td>{content.title}</td>
+                      <td>{content.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+          </div>
+        </div>
       </div>
     </>
   );
