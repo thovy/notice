@@ -1,14 +1,18 @@
 import React, { useMemo, useState } from 'react'
-import { dummyJob } from './dummyJob'
+import { JobContents } from './dummyJob'
 import { useTSKContentsButtonStore } from '../../../store/post/TSKContentsButtonStore'
 import JobContentsList from './JobContentsList';
 
-const JobContents: React.FC<any> = ({ onJobSelected }) => {
+// 상위컴포넌트에서 내려주는 항목들 type 정의
+interface ChildComponentProps {
+    onJobSelected: any;
+    jobData: JobContents[];
+}
+
+const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) => {
 
     // 직무(job) 선택 드롭 다운 메뉴, 선택된 직무(job)에 대한 tsk 출력
     const { selectedJobContents, selectedItemType, selectJobContents, selectItemType } = useTSKContentsButtonStore();
-
-    const [selectedJob, setSelectedJob] = useState<any>();
 
     const contents = useMemo(() => {
         if (!selectedJobContents) return [];
@@ -36,13 +40,13 @@ const JobContents: React.FC<any> = ({ onJobSelected }) => {
                 className='job-drop-down'
                 onChange={(e) => 
                     {
-                        selectJobContents(dummyJob[Number(e.target.value)])
+                        selectJobContents(jobData[Number(e.target.value)])
                         handleJobselect(e)
                     }
                 }
             >
                 <option value={-1} >직무를 선택해주세요.</option>
-                {dummyJob.map((jobContent:any, index:any) => (
+                {jobData.map((jobContent:any, index:any) => (
                     <option key={jobContent.id} value={index}>
                         {jobContent.title}
                     </option>
@@ -59,16 +63,16 @@ const JobContents: React.FC<any> = ({ onJobSelected }) => {
 
         {/* 선택된 직무에 속한 task/skill/knowledge */}
         <div className="job-tsk-container">
+            {/* tsk 선택 버튼 */}
             <div className="tsk-button-container">
                 <button onClick={() => selectItemType('tasks')}>Task</button>
                 <button onClick={() => selectItemType('knowledges')}>Knowledge</button>
                 <button onClick={() => selectItemType('skills')}>Skill</button>
             </div>
+            {/* tsk 에 속한 내용 */}
             <div className="tsk-list-wrapper">
                 {selectedJobContents && (
-                    <JobContentsList
-                        items = {contents}
-                    />
+                    <JobContentsList items = {contents} />
                 )}
             </div>
         </div>
@@ -76,4 +80,4 @@ const JobContents: React.FC<any> = ({ onJobSelected }) => {
   )
 }
 
-export default JobContents
+export default JobComponent

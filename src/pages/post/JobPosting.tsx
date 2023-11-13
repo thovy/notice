@@ -1,31 +1,41 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import JobContents from '../../components/post/posting/JobContents'
+import JobComponent from '../../components/post/posting/JobComponent'
 import TSKContents from '../../components/post/posting/TSKContents'
 import { useJobTSKButtonStore } from '../../store/post/JobTSKButtonStore'
 import { log } from 'console'
+import { JobContents, dummyJob } from '../../components/post/posting/dummyJob'
 
 const JobPosting: React.FC = () => {
     
+    const jobData:JobContents[] = dummyJob;
+
     // 직무/TSK 선택 버튼 상태 관리
     const { selectedButton, setSelectedButton } = useJobTSKButtonStore();
 
     const [postingData, setPostingData] = useState({
         title: '',
         isJob: selectedButton,
-        jobTskContentsId: '',
+        jobContentsId: '',
+        tskContentsDict: {},
         etcContents: '',
         analyzeResult: ''
     })
 
     // 선택된 직무/TSK 내용 저장
     const handleJobTskContents = (jobTskContents: string) => {
-        setPostingData({...postingData, jobTskContentsId: jobTskContents});
+        setPostingData({...postingData, jobContentsId: jobTskContents});
+    }
+
+    const handleTSKContents = (tskContents: any) => {
+        setPostingData({...postingData, tskContentsDict: tskContents});
     }
 
     // 공고 등록 버튼
     const handlePostingButton = () => {
         try{
+
+            // server api 가 완성되면 fetch api로 바꿔야합니다
             console.log('postingData', postingData);
         }
         catch (e){
@@ -37,7 +47,7 @@ const JobPosting: React.FC = () => {
     const navigate:any = useNavigate();
     const handleCancelButton = () => {
         // 뒤로가기
-        navigate(-1); // go back one page
+        navigate(-1);
         // 뒤로 갈 페이지가 없으면 메인으로
         if(navigate() == null || navigate() == undefined) {
             navigate('/');
@@ -57,12 +67,24 @@ const JobPosting: React.FC = () => {
                 </div>
                 {/* 직무/TSK 선택 버튼 */}
                 <div className='job-tsk-select-button-wrapper'>
-                    <button onClick={() => setSelectedButton('job')}>직무 선택</button>
-                    <button onClick={() => setSelectedButton('tsk')}>업무/스킬/지식 선택</button>
+                    <button 
+                        onClick={() => {
+                            setSelectedButton('job')
+                            setPostingData({...postingData, isJob: 'job'})
+                        }}
+                    >직무 선택</button>
+                    <button 
+                        onClick={() => {
+                            setSelectedButton('tsk')
+                            setPostingData({...postingData, isJob: 'tsk'})
+                        }}
+                    >업무/스킬/지식 선택</button>
                 </div>
                 {/* 직무/TSK 선택 컴포넌트 - 버튼에 따라 다른 표시*/}
                 <div className='job-tsk-contents-container'>
-                    {selectedButton === "tsk" ? <TSKContents /> : <JobContents onJobSelected={handleJobTskContents} />}
+                    {selectedButton === "tsk"
+                    ? <TSKContents onJobSelected={handleTSKContents} jobData={jobData}/> 
+                    : <JobComponent onJobSelected={handleJobTskContents} jobData={jobData} />}
                 </div>
                 {/* 기타 공고 내용 - 기타 공고에 필요한 내용 */}
                 <div className="etc-contents-container">
