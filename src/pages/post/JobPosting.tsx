@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import JobComponent from '../../components/post/posting/JobComponent'
 import TSKContents from '../../components/post/posting/TSKContents'
 import { useJobTSKButtonStore } from '../../store/post/JobTSKButtonStore'
-import { log } from 'console'
-import { JobContents, dummyJob } from '../../components/post/posting/dummyJob'
+import { JobContents, dummyJob } from '../../components/post/dummyJob'
 
 const JobPosting: React.FC = () => {
     

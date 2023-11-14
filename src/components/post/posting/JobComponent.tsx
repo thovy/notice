@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { JobContents } from './dummyJob'
+import { JobContents } from '../dummyJob'
 import { useTSKContentsButtonStore } from '../../../store/post/TSKContentsButtonStore'
 import JobContentsList from './JobContentsList';
 

@@ -14,8 +14,8 @@ export interface TaskContents {
     id: number;
     title: string;
     description: string;
-    skills: SkillContents[];
-    knowledges: KnowledgeContents[];
+    skills: SkillContents[] | null;
+    knowledges: KnowledgeContents[] | null;
 }
 
 export interface JobContents {
@@ -25,7 +25,118 @@ export interface JobContents {
     tasks: TaskContents[];
 }
 
-// dummy
+export interface Post {
+    id: number;
+    author: string;
+    title: string;
+    description: string;
+    etcContents: string;
+    createdAt: string;
+    isJob: string;
+    isNewbie: string;
+    analyzeResult: string;
+    jobContentsId: number | null;
+    tskcontentsDict: {
+        tasks: TaskContents[] | null;
+        skills: SkillContents[] | null;
+        knowledges: KnowledgeContents[] | null;
+    } | null;
+}
+
+// dummy post
+export const dummyPost:Post[] = [
+    {
+        id: 1,
+        author: "author1",
+        title: "사이버 보안 전문가 채용공고",
+        description: "사이버 보안 전문가 설명",
+        etcContents: "사이버 보안 전문가 기타 내용",
+        createdAt: "2021-08-01",
+        isJob: "job",
+        isNewbie: "newbie",
+        analyzeResult: "사이버 보안 전문가 분석 결과",
+        jobContentsId: 1,
+        tskcontentsDict: null
+    },
+    {
+        id: 2,
+        author: "author2",
+        title: "데이터 분석가 채용공고",
+        description: "데이터 분석가 설명",
+        etcContents: "데이터 분석가 기타 내용",
+        createdAt: "2023-08-02",
+        isJob: "job",
+        isNewbie: "newbie",
+        analyzeResult: "데이터 분석가 분석 결과",
+        jobContentsId: 2,
+        tskcontentsDict: null
+    },
+    {
+        id: 3,
+        author: "author3",
+        title: "데이터 엔지니어 채용공고",
+        description: "데이터 엔지니어 설명",
+        etcContents: "데이터 엔지니어 기타 내용",
+        createdAt: "2022-08-03",
+        isJob: "job",
+        isNewbie: "experienced",
+        analyzeResult: "데이터 엔지니어 분석 결과",
+        jobContentsId: 3,
+        tskcontentsDict: null
+    },
+    {
+        id: 4,
+        author: "author1",
+        title: "침투 테스트 전문가 채용공고",
+        description: "침투 테스트 전문가 설명",
+        etcContents: "침투 테스트 전문가 기타 내용",
+        createdAt: "2021-08-04",
+        isJob: "job",
+        isNewbie: "experienced",
+        analyzeResult: "침투 테스트 전문가 분석 결과",
+        jobContentsId: 4,
+        tskcontentsDict: null
+    },
+    {
+        id: 5,
+        author: "author1",
+        title: "잡부 채용공고",
+        description: "잡부 설명",
+        etcContents: "잡부 기타 내용",
+        createdAt: "2021-08-05",
+        isJob: "tsk",
+        isNewbie: "newbie",
+        analyzeResult: "잡부 분석 결과",
+        jobContentsId: null,
+        tskcontentsDict: {
+            "tasks": [
+                {
+                    id: 1,
+                    title: "사이버 보안 전문가의 업무1",
+                    description: "사이버 보안 전문가의 업무1 설명",
+                    skills: [
+                        {
+                            id: 1,
+                            title: "사이버 보안 전문가의 업무1의 스킬1",
+                            description: "사이버 보안 전문가의 업무1의 스킬1 설명"
+                        },
+                        {
+                            id: 2,
+                            title: "사이버 보안 전문가의 업무1의 스킬2",
+                            description: "사이버 보안 전문가의 업무1의 스킬2 설명"
+                        }
+                    ],
+                    knowledges: [],
+                },
+            ],
+            "skills" : [],
+            "knowledges": [],
+        }
+    }
+]
+
+
+// dummy jobcontents
 export const dummyJob:JobContents[] = [
     {
         id: 1,

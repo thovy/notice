@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { TaskContents, KnowledgeContents, SkillContents, JobContents } from './dummyJob';
+import { TaskContents, KnowledgeContents, SkillContents, JobContents } from '../dummyJob';
 
 // 상위컴포넌트에서 내려주는 항목들 type 정의
 interface ChildComponentProps {
@@ -13,21 +13,21 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
   const [selectedItemType, setSelectedItemType] = useState('tasks');
 
   // 선택된 버튼(tsk)에 따라 해당하는 리스트 출력
-  const contents:Array <TaskContents | KnowledgeContents | SkillContents> =(()=> {
+  const contents:Array <TaskContents | KnowledgeContents | SkillContents> = useMemo(() => {
     if ( selectedItemType === 'tasks') {
       const tasks = jobData.flatMap( (job) => job.tasks.map( (task) => task) );
       return tasks;
     }
     if ( selectedItemType === 'skills') {
-      const skills = jobData.flatMap( (job) => job.tasks.flatMap( (task) => task.skills.map( (skill) => skill) ) );
+      const skills = jobData.flatMap( (job) => job.tasks.flatMap( (task) => task.skills?.map( (skill) => skill) || []) );
       return skills;
     }
     if ( selectedItemType === 'knowledges') {
-      const knowledges = jobData.flatMap( (job) => job.tasks.flatMap( (task) => task.knowledges.map( (knowledge) => knowledge) ) );
+      const knowledges = jobData.flatMap( (job) => job.tasks.flatMap( (task) => task.knowledges?.map( (knowledge) => knowledge) || []) );
       return knowledges;
     }
     return [];
-  })();
+  }, [jobData, selectedItemType]);
 
   // 선택된 tsk
   const [selectedTSK, setSelectedTSK] = useState<any>({

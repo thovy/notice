@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { JobContents, TaskContents, KnowledgeContents, SkillContents } from '../../components/post/posting/dummyJob';
+import { JobContents, TaskContents, KnowledgeContents, SkillContents } from '../../components/post/dummyJob';
 
 type TSKContentsButtonStore = {
     selectedJobContents: JobContents | null;
