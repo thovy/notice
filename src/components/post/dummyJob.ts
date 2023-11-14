@@ -31,9 +31,14 @@ export interface Post {
     title: string;
     description: string;
     etcContents: string;
-    createdAt: string;
+    createdAt: Date;
+    // expiratedAt 이 없으면 상시 모집
+    expiratedAt?: Date;
     isJob: string;
-    isNewbie: string;
+    // experienced - 요구 경력: 0 무관, 1 신입, 2 경력
+    experienced: number;
+    // edu - 요구 학력: 0 무관, 1 고졸, 2 초대졸, 3 대졸, 4 석사, 5 박사
+    edu: number;
     analyzeResult: string;
     jobContentsId: number | null;
     tskcontentsDict: {
@@ -41,6 +46,9 @@ export interface Post {
         skills: SkillContents[] | null;
         knowledges: KnowledgeContents[] | null;
     } | null;
+    // 공고 공개여부
+    isPublic: boolean;
+    applyUser: number[];
 }
 
 // dummy post
@@ -51,12 +59,16 @@ export const dummyPost:Post[] = [
         title: "사이버 보안 전문가 채용공고",
         description: "사이버 보안 전문가 설명",
         etcContents: "사이버 보안 전문가 기타 내용",
-        createdAt: "2021-08-01",
+        createdAt: new Date("2021-08-01"),
+        expiratedAt: new Date("2021-09-01"),
         isJob: "job",
-        isNewbie: "newbie",
+        experienced: 1,
+        edu: 3,
         analyzeResult: "사이버 보안 전문가 분석 결과",
         jobContentsId: 1,
-        tskcontentsDict: null
+        tskcontentsDict: null,
+        isPublic: true,
+        applyUser: []
     },
     {
         id: 2,
@@ -64,12 +76,16 @@ export const dummyPost:Post[] = [
         title: "데이터 분석가 채용공고",
         description: "데이터 분석가 설명",
         etcContents: "데이터 분석가 기타 내용",
-        createdAt: "2023-08-02",
+        createdAt: new Date("2023-08-02"),
+        expiratedAt: new Date("2023-09-02"),
         isJob: "job",
-        isNewbie: "newbie",
+        experienced: 0,
+        edu: 4,
         analyzeResult: "데이터 분석가 분석 결과",
         jobContentsId: 2,
-        tskcontentsDict: null
+        tskcontentsDict: null,
+        isPublic: true,
+        applyUser: []
     },
     {
         id: 3,
@@ -77,12 +93,15 @@ export const dummyPost:Post[] = [
         title: "데이터 엔지니어 채용공고",
         description: "데이터 엔지니어 설명",
         etcContents: "데이터 엔지니어 기타 내용",
-        createdAt: "2022-08-03",
+        createdAt: new Date("2022-08-03"),
         isJob: "job",
-        isNewbie: "experienced",
+        experienced: 0,
+        edu: 0,
         analyzeResult: "데이터 엔지니어 분석 결과",
         jobContentsId: 3,
-        tskcontentsDict: null
+        tskcontentsDict: null,
+        isPublic: true,
+        applyUser: []
     },
     {
         id: 4,
@@ -90,12 +109,15 @@ export const dummyPost:Post[] = [
         title: "침투 테스트 전문가 채용공고",
         description: "침투 테스트 전문가 설명",
         etcContents: "침투 테스트 전문가 기타 내용",
-        createdAt: "2021-08-04",
+        createdAt: new Date("2023-08-04"),
         isJob: "job",
-        isNewbie: "experienced",
+        experienced: 0,
+        edu: 0,
         analyzeResult: "침투 테스트 전문가 분석 결과",
         jobContentsId: 4,
-        tskcontentsDict: null
+        tskcontentsDict: null,
+        isPublic: false,
+        applyUser: []
     },
     {
         id: 5,
@@ -103,9 +125,10 @@ export const dummyPost:Post[] = [
         title: "잡부 채용공고",
         description: "잡부 설명",
         etcContents: "잡부 기타 내용",
-        createdAt: "2021-08-05",
+        createdAt: new Date("2021-08-05"),
         isJob: "tsk",
-        isNewbie: "newbie",
+        experienced: 0,
+        edu: 5,
         analyzeResult: "잡부 분석 결과",
         jobContentsId: null,
         tskcontentsDict: {
@@ -131,7 +154,9 @@ export const dummyPost:Post[] = [
             ],
             "skills" : [],
             "knowledges": [],
-        }
+        },
+        isPublic: true,
+        applyUser: []
     }
 ]
 
