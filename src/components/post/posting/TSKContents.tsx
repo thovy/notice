@@ -12,6 +12,9 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
   // tsk 선택 버튼
   const [selectedItemType, setSelectedItemType] = useState('tasks');
 
+  // selected category
+  const [selectedCategory, setSelectedCategory] = useState(-1);
+
   // 선택된 버튼(tsk)에 따라 해당하는 리스트 출력
   const contents:Array <TaskContents | KnowledgeContents | SkillContents> = useMemo(() => {
     if ( selectedItemType === 'tasks') {
@@ -40,6 +43,11 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
   const unselectedTSK = contents.filter( (content) => {
     const selectedIds = selectedTSK[selectedItemType] || [];
     if (selectedIds !== undefined) {
+      // 카테고리가 있는(task) 경우에는 카테고리가 같은 것만 출력
+      if ('category' in content) {
+        return !selectedIds.includes(content.id) && (selectedCategory == -1 || selectedCategory == content.category);
+      }
+      // 카테고리가 없으면(skills, knowledge) 모두 출력
       return !selectedIds.includes(content.id);
     }
   });
@@ -73,6 +81,32 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
         <button onClick={() => setSelectedItemType('knowledges')}>Knowledge</button>
         <button onClick={() => setSelectedItemType('skills')}>Skill</button>
       </div>
+
+      {/* tsk category 선택 drop down menu */}
+      <div className="tsk-drop-down-wrapper">
+        <select
+          className="tsk-drop-down"
+          onChange={(e) => {
+            setSelectedCategory(Number(e.target.value));
+          }}
+        >
+          <option value={-1}>카테고리 전체보기</option>
+          {/* 12개의 카테고리 선택 메뉴 */}
+          <option key={1} value={1}>카테고리 1</option>
+          <option key={2} value={2}>카테고리 2</option>
+          <option key={3} value={3}>카테고리 3</option>
+          <option key={4} value={4}>카테고리 4</option>
+          <option key={5} value={5}>카테고리 5</option>
+          <option key={6} value={6}>카테고리 6</option>
+          <option key={7} value={7}>카테고리 7</option>
+          <option key={8} value={8}>카테고리 8</option>
+          <option key={9} value={9}>카테고리 9</option>
+          <option key={10} value={10}>카테고리 10</option>
+          <option key={11} value={11}>카테고리 11</option>
+          <option key={12} value={12}>카테고리 12</option>
+        </select>
+      </div>
+
 
       {/* 항목 리스트 컨테이너 */}
       <div className="tsk-list-container">
