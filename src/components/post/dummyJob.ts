@@ -12,6 +12,7 @@ export interface KnowledgeContents {
 
 export interface TaskContents {
     id: number;
+    category: number;
     title: string;
     description: string;
     skills: SkillContents[] | null;
@@ -135,6 +136,7 @@ export const dummyPost:Post[] = [
             "tasks": [
                 {
                     id: 1,
+                    category: 1,
                     title: "사이버 보안 전문가의 업무1",
                     description: "사이버 보안 전문가의 업무1 설명",
                     skills: [
@@ -170,6 +172,7 @@ export const dummyJob:JobContents[] = [
         tasks: [
             {
                 id: 1,
+                category: 1,
                 title: "사이버 보안 전문가의 업무1",
                 description: "사이버 보안 전문가의 업무1 설명",
                 skills: [
@@ -199,6 +202,7 @@ export const dummyJob:JobContents[] = [
             },
             {
                 id: 2,
+                category: 2,
                 title: "사이버 보안 전문가의 업무2",
                 description: "사이버 보안 전문가의 업무2 설명",
                 skills: [
@@ -236,6 +240,7 @@ export const dummyJob:JobContents[] = [
         tasks: [
             {
                 id: 3,
+                category: 1,
                 title: "데이터 분석가의 업무1",
                 description: "데이터 분석가의 업무1 설명",
                 skills: [
@@ -265,6 +270,7 @@ export const dummyJob:JobContents[] = [
             },
             {
                 id: 4,
+                category: 3,
                 title: "데이터 분석가의 업무2",
                 description: "데이터 분석가의 업무2 설명",
                 skills: [
@@ -301,6 +307,7 @@ export const dummyJob:JobContents[] = [
         tasks: [
             {
                 id: 5,
+                category: 4,
                 title: "데이터 엔지니어의 업무1",
                 description: "데이터 엔지니어의 업무1 설명",
                 skills: [
@@ -330,6 +337,7 @@ export const dummyJob:JobContents[] = [
             },
             {
                 id: 6,
+                category: 4,
                 title: "데이터 엔지니어의 업무2",
                 description: "데이터 엔지니어의 업무2 설명",
                 skills: [
@@ -366,6 +374,7 @@ export const dummyJob:JobContents[] = [
         tasks: [
             {
                 id: 7,
+                category: 5,
                 title: "침투 테스트 전문가의 업무1",
                 description: "침투 테스트 전문가의 업무1 설명",
                 skills: [
@@ -395,6 +404,7 @@ export const dummyJob:JobContents[] = [
             },
             {
                 id: 8,
+                category: 6,
                 title: "침투 테스트 전문가의 업무2",
                 description: "침투 테스트 전문가의 업무2 설명",
                 skills: [
