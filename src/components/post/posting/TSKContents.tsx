@@ -49,6 +49,22 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
     onJobSelected(selectedTSK)
   }, [selectedTSK])
 
+  // 선택된 항목이 10개 이상이면 체크박스 선택 불가능하게 하기
+  useMemo(()=> {
+    if (selectedTSK[selectedItemType].length >= 10) {
+      const checkBoxes = document.querySelectorAll('.unselected-list input[type="checkbox"]');
+      checkBoxes.forEach((checkBox) => {
+        checkBox.setAttribute('disabled', 'disabled');
+      })
+    }
+    else{
+      const checkBoxes = document.querySelectorAll('.unselected-list input[type="checkbox"]');
+      checkBoxes.forEach((checkBox) => {
+        checkBox.removeAttribute('disabled');
+      })
+    }
+  }, [selectedTSK])
+
   return (
     <>
       {/* TSK 선택 버튼 */}
