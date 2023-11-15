@@ -13,12 +13,26 @@ const JobPosting: React.FC = () => {
     const { selectedButton, setSelectedButton } = useJobTSKButtonStore();
 
     const [postingData, setPostingData] = useState({
+        // 기본 공고 정보
+        author: '',
         title: '',
+        etcContents: '',
+        // 공고 등록 날짜가 시작날짜
+        startDate: "",
+        // 종료 날짜를 설정하지 않으면 무기한.
+        endDate: "",
         isJob: selectedButton,
+        career: 0,
+        edu: 0,
+        // 분석 결과
+        analyzeResult: '',
+        // 직무/tsk 정보
         jobContentsId: '',
         tskContentsDict: {},
-        etcContents: '',
-        analyzeResult: ''
+        // 공고 공개 여부
+        isPublic: false,
+        // 지원자 정보
+        applicantId: [],
     })
 
     // 선택된 직무/TSK 내용 저장
@@ -33,7 +47,6 @@ const JobPosting: React.FC = () => {
     // 공고 등록 버튼
     const handlePostingButton = () => {
         try{
-
             // server api 가 완성되면 fetch api로 바꿔야합니다
             console.log('postingData', postingData);
         }
@@ -57,7 +70,7 @@ const JobPosting: React.FC = () => {
     return (
         <>
             <div className="main-posting-container">
-                {/* 공고 제목 입력 창 */}
+                {/* 공고 제목 입력 창  title */}
                 <div className="posting-title-wrapper">
                     <label htmlFor="posting-title">공고 제목</label>
                     <input id="posting-title" type="text" 
@@ -85,6 +98,63 @@ const JobPosting: React.FC = () => {
                     ? <TSKContents onJobSelected={handleTSKContents} jobData={jobData}/> 
                     : <JobComponent onJobSelected={handleJobTskContents} jobData={jobData} />}
                 </div>
+                {/* 기본 공고 정보 - startDate, endDate, career, edu, isPublic */}
+
+                <div className="basic-contents-container">
+                    <div className="basic-contents-wrapper">
+                        <div className="select-date-wrapper">
+                            <label htmlFor="posting-start-date">공고 시작일</label>
+                            <input id="posting-start-date" type="date"
+                                value={postingData.startDate}
+                                onChange={(e) => {
+                                    setPostingData({...postingData, startDate: String(e.target.value)})
+                                    // 공고 만료일이 공고 시작일 이전이 되면, 공고만료일을 공고시작일로.
+                                    if (postingData.endDate != "" && new Date(e.target.value) > new Date(postingData.endDate)) {
+                                        setPostingData({...postingData, startDate: String(e.target.value), endDate: String(e.target.value)});
+                                    }
+                                    }}
+                                    />
+                            <label htmlFor="posting-end-date">공고 만료일</label>
+                            <input id="posting-end-date" type="date"
+                                value={postingData.endDate}
+                                min={postingData.startDate}
+                                onChange={(e) => setPostingData({...postingData, endDate: String(e.target.value)})}
+                                />
+                        </div>
+                        <div className="select-career-wrapper">
+                            <label htmlFor="posting-career">경력</label>
+                            <select id="posting-career" 
+                                onChange={(e) => setPostingData({...postingData, career: Number(e.target.value)})}
+                                >
+                                <option value={0}>무관</option>
+                                <option value={1}>신입</option>
+                                <option value={2}>경력</option>
+                            </select>
+                        </div>
+                        <div className="select-edu-wrapper">
+                            <label htmlFor="posting-edu">학력</label>
+                            <select id="posting-edu" 
+                                onChange={(e) => setPostingData({...postingData, edu: Number(e.target.value)})}
+                            >
+                                <option value={0}>무관</option>
+                                <option value={1}>학력무관</option>
+                                <option value={2}>고졸</option>
+                                <option value={3}>대졸</option>
+                                <option value={4}>대학원졸</option>
+                            </select>
+                        </div>
+                        <div className="select-public-wrapper">
+                            <label htmlFor="posting-ispublic">공개 여부</label>
+                            <select id="posting-ispublic" 
+                                onChange={(e) => setPostingData({...postingData, isPublic: Boolean(e.target.value)})}
+                                >
+                                <option value="false">비공개</option>
+                                <option value="true">공개</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 {/* 기타 공고 내용 - 기타 공고에 필요한 내용 */}
                 <div className="etc-contents-container">
                     <div className="etc-contents-wrapper">
