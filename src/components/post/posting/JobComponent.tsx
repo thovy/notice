@@ -35,7 +35,7 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
   return (
     <>
         {/* 직무선택 드롭다운 메뉴 */}
-        <div className="job-drop-down-wrapper">
+        <div className="job-drop-down-wrapper drop-down-wrapper">
             <select 
                 className='job-drop-down'
                 onChange={(e) => 
