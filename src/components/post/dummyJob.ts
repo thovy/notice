@@ -42,7 +42,7 @@ export interface Post {
     // edu - 요구 학력: 0 무관, 1 고졸, 2 초대졸, 3 대졸, 4 석사, 5 박사
     edu: number;
     analyzeResult: string;
-    jobContentsId: number | null;
+    jobContentsId: string | null;
     tskContentsDict: {
         tasks: TaskContents[] | null;
         skills: SkillContents[] | null;
@@ -67,7 +67,7 @@ export const dummyPost:Post[] = [
         career: 1,
         edu: 3,
         analyzeResult: "사이버 보안 전문가 분석 결과",
-        jobContentsId: 1,
+        jobContentsId: "J0001",
         tskContentsDict: null,
         isPublic: true,
         applicantId: []
@@ -84,7 +84,7 @@ export const dummyPost:Post[] = [
         career: 0,
         edu: 4,
         analyzeResult: "데이터 분석가 분석 결과",
-        jobContentsId: 2,
+        jobContentsId: "J0002",
         tskContentsDict: null,
         isPublic: true,
         applicantId: []
@@ -100,7 +100,7 @@ export const dummyPost:Post[] = [
         career: 0,
         edu: 0,
         analyzeResult: "데이터 엔지니어 분석 결과",
-        jobContentsId: 3,
+        jobContentsId: "J0003",
         tskContentsDict: null,
         isPublic: true,
         applicantId: []
@@ -117,7 +117,7 @@ export const dummyPost:Post[] = [
         career: 0,
         edu: 0,
         analyzeResult: "침투 테스트 전문가 분석 결과",
-        jobContentsId: 4,
+        jobContentsId: "J0004",
         tskContentsDict: null,
         isPublic: false,
         applicantId: []
