@@ -1,0 +1,80 @@
+/* 회원가입 컨테이너 */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* 회원가입 폼 */
+.signup-wrapper {
+    width: 400px;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* 회원가입 제목 */
+.signup-title-wrapper p {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 회원가입 입력 필드 */
+.signup-input-wrapper {
+    margin-bottom: 20px;
+}
+
+.signup-input-wrapper label {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.signup-input-wrapper input,
+.signup-input-wrapper select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* 회원가입 버튼 */
+.signup-button-wrapper {
+    text-align: center;
+}
+
+.signup-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* 버튼이 컨테이너의 가로 너비를 가득 채우도록 설정 */
+    margin: 0 0 10px 0;
+}
+
+/* 로그인 버튼 */
+.login-button-wrapper {
+    text-align: center;
+}
+
+.login-button-wrapper p {
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.login-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 400px; /* 버튼이 컨테이너의 가로 너비를 가득 채우도록 설정 */
+}
