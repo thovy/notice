@@ -32,6 +32,13 @@ const JobPostThumb:React.FC<ChildCompoenentProps> = ({postData}) => {
 
   return (
     <>
+        {isModalOpen &&
+            <div className="modal-overlay">
+                <div className="modal-content">
+                    <JobPostListModal handleModal={handleModalOpen} postData={postData} />
+                </div>
+            </div>
+        }
         <div className="card-container">
             <div className="author-title-container">
                 <div className="title-detail-wrapper">
@@ -83,9 +90,6 @@ const JobPostThumb:React.FC<ChildCompoenentProps> = ({postData}) => {
                 <button onClick={()=>handleModalOpen()}>직무 상세보기</button>
             </div>
         </div>
-        {isModalOpen &&
-            <JobPostListModal handleModal={handleModalOpen} postData={postData} />
-        }
     </>
   )
 }
