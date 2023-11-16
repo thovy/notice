@@ -1,0 +1,70 @@
+/* 전체 컨테이너 */
+.post-list-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 타이틀 및 버튼 컨테이너 */
+.post-list-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-wrapper p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 뷰 버튼 컨테이너 */
+.view-button-container {
+    margin-bottom: 20px;
+}
+
+.view-button-wrapper .view-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.view-button-wrapper .view-button.active {
+    background-color: var(--button-active);
+    color: #fff;
+}
+
+/* 직무 선택 드롭다운메뉴 */
+.job-drop-down-wrapper {
+    margin-bottom: 20px;
+}
+
+.job-drop-down-wrapper .job-drop-down {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* 채용공고 리스트 컨테이너 */
+.post-list-contents-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.nullPostList p {
+    font-size: 16px;
+    color: #666;
+}
