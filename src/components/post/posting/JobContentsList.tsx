@@ -1,4 +1,5 @@
 import React from 'react'
+import './JobContentsList.css'
 
 const JobContentsList = ( {items}:any ) => {
   return (
@@ -7,9 +8,9 @@ const JobContentsList = ( {items}:any ) => {
         <table>
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>title</th>
-                    <th>description</th>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>설명</th>
                 </tr>
             </thead>
             <tbody>

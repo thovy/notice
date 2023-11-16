@@ -32,6 +32,10 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
         onJobSelected(Number(e.target.value) + 1);
     }
 
+    
+  // TSK 버튼 list
+  const tskbuttonlist = ['tasks', 'knowledges', 'skills']
+
   return (
     <>
         {/* 직무선택 드롭다운 메뉴 */}
@@ -65,9 +69,12 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
         <div className="job-tsk-container">
             {/* tsk 선택 버튼 */}
             <div className="tsk-button-container">
-                <button onClick={() => selectItemType('tasks')}>Task</button>
-                <button onClick={() => selectItemType('knowledges')}>Knowledge</button>
-                <button onClick={() => selectItemType('skills')}>Skill</button>
+                {tskbuttonlist.map((button) => (
+                    <button
+                        onClick={() => selectItemType(button as "tasks" | "skills" | "knowledges")}
+                        className={selectedItemType === button ? 'active' : ''}
+                    >{button.toUpperCase()}</button>
+                    ))}
             </div>
             {/* tsk 에 속한 내용 */}
             <div className="tsk-list-wrapper">

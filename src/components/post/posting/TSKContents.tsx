@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { TaskContents, KnowledgeContents, SkillContents, JobContents } from '../dummyJob';
+import './TSKContents.css'
 
 // 상위컴포넌트에서 내려주는 항목들 type 정의
 interface ChildComponentProps {
@@ -71,13 +72,19 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
     }
   }, [selectedTSK])
 
+  // TSK 버튼 list
+  const tskbuttonlist = ['tasks', 'knowledges', 'skills']
+
   return (
     <>
       {/* TSK 선택 버튼 */}
       <div className="tsk-button-container">
-        <button onClick={() => setSelectedItemType('tasks')}>Task</button>
-        <button onClick={() => setSelectedItemType('knowledges')}>Knowledge</button>
-        <button onClick={() => setSelectedItemType('skills')}>Skill</button>
+        {tskbuttonlist.map((button) => (
+          <button
+            onClick={() => setSelectedItemType(button)}
+            className={selectedItemType === button ? 'active' : ''}
+          >{button.toUpperCase()}</button>
+        ))}
       </div>
 
       {/* task category 선택 drop down menu */}
@@ -113,9 +120,17 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
         <div className="tsk-list-wrapper">
           <div className="selected-contents">
             {/* 리스트 제목 */}
-            <h1>SELECTED {selectedItemType.toUpperCase()}</h1>
+            <h1>선택된 {selectedItemType.toUpperCase()}</h1>
             {/* 리스트 테이블 */}
             <table>
+              <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>설명</th>
+                </tr>
+              </thead>
               <tbody className="selected-list">
                 {(selectedTSK[selectedItemType] || []).map((id: string) => (
                   <tr key={id}>
@@ -159,9 +174,17 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
         <div className="tsk-list-wrapper">
           <div className="unselected-contents">
             {/* 리스트 제목 */}
-            <h1>UNSELECTED {selectedItemType.toUpperCase()}</h1>
+            <h1>선택할 수 있는 {selectedItemType.toUpperCase()}</h1>
             {/* 리스트 테이블 */}
               <table>
+                <thead>
+                  <tr>
+                      <th>선택</th>
+                      <th>ID</th>
+                      <th>이름</th>
+                      <th>설명</th>
+                  </tr>
+                </thead>
                 <tbody className="unselected-list">
                   {unselectedTSK.map((content) => (
                     <tr key={content.id}>
