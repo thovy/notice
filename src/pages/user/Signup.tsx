@@ -19,39 +19,43 @@ const Signup = () => {
     const checkForm = async () => {
         if (signupFormData.account === '') {
             alert('아이디를 입력해주세요.')
-            return null;
+            return false;
         }
         if (signupFormData.password === '') {
             alert('비밀번호를 입력해주세요.')
-            return null;
+            return false;
         }
         if (signupFormData.passwordCheck === '') {
             alert('비밀번호 한 번 더 입력해주세요.')
-            return null;
+            return false;
         }
         if (signupFormData.password !== signupFormData.passwordCheck) {
             alert('비밀번호가 일치하지 않습니다.')
-            return null;
+            return false;
         }
         if (signupFormData.userType === '') {
             alert('회원 유형을 선택해주세요.')
-            return null;
+            return false;
         }
         if (signupFormData.userType == "기업회원" && signupFormData.username == "") {
             alert('기업명을 입력해주세요.')
-            return null;
+            return false;
         }
+        if (signupFormData.location === "-1") {
+            alert('희망 근무지/기업 위치를 선택해주세요.')
+            return false;
+        }
+        return true;
     }
 
     const handleSignup = async (event:any) => {
         event.preventDefault();
 
-        console.log(signupFormData);
+        const checkResult:boolean = await checkForm();
 
-        await checkForm();
-
-
-        
+        if (checkResult){
+            console.log(signupFormData);
+            
         // const response = await fetch('http://localhost:8000/api/login/', {
         //     method: 'POST',
         //     headers: {
@@ -65,6 +69,8 @@ const Signup = () => {
         // .catch((err) => {
         //     console.error(err);
         // })
+
+        }
               
     }
 

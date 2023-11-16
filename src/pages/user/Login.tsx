@@ -9,10 +9,25 @@ const Login = () => {
         password: '',
     })
 
+    const checkForm = async () => {
+        if (loginFormData.account === '') {
+            alert('아이디를 입력해주세요.')
+            return false;
+        }
+        if (loginFormData.password === '') {
+            alert('비밀번호를 입력해주세요.')
+            return false;
+        }
+        return true;
+    }
+
     const handleLogin = async (event:any) => {
         event.preventDefault();
 
-        console.log(loginFormData);
+        const checkResult:boolean = await checkForm();
+
+        if (checkResult){
+            console.log(loginFormData);
         
         // const response = await fetch('http://localhost:8000/api/login/', {
         //     method: 'POST',
@@ -27,7 +42,8 @@ const Login = () => {
         // .catch((err) => {
         //     console.error(err);
         // })
-              
+
+        }
     }
 
 

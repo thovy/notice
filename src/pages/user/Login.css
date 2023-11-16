@@ -10,7 +10,8 @@
 
 /* 로그인 폼 */
 .login-wrapper {
-    width: 400px;
+    width: calc(100% - 40px);
+    min-width: 315px;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -71,6 +72,6 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 400px; /* 버튼이 컨테이너의 가로 너비를 가득 채우도록 설정 */
     margin-top: 0px;
+    min-width: 315px;
 }
