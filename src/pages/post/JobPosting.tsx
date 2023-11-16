@@ -4,6 +4,7 @@ import JobComponent from '../../components/post/posting/JobComponent'
 import TSKContents from '../../components/post/posting/TSKContents'
 import { useJobTSKButtonStore } from '../../store/post/JobTSKButtonStore'
 import { JobContents, dummyJob } from '../../components/post/dummyJob'
+import './JobPosting.css'
 
 const JobPosting: React.FC = () => {
     
@@ -70,6 +71,7 @@ const JobPosting: React.FC = () => {
     return (
         <>
             <div className="main-posting-container">
+                <h1>공고 등록</h1>
                 {/* 공고 제목 입력 창  title */}
                 <div className="posting-title-wrapper">
                     <label htmlFor="posting-title">공고 제목</label>
@@ -84,12 +86,14 @@ const JobPosting: React.FC = () => {
                             setSelectedButton('job')
                             setPostingData({...postingData, isJob: 'job'})
                         }}
+                        className={selectedButton === "job" ? "active" : ""}
                     >직무 선택</button>
                     <button 
                         onClick={() => {
                             setSelectedButton('tsk')
                             setPostingData({...postingData, isJob: 'tsk'})
                         }}
+                        className={selectedButton === "tsk" ? "active" : ""}
                     >업무/스킬/지식 선택</button>
                 </div>
                 {/* 직무/TSK 선택 컴포넌트 - 버튼에 따라 다른 표시*/}
@@ -175,8 +179,8 @@ const JobPosting: React.FC = () => {
 
                 {/* 공고 등록/취소 버튼 */}
                 <div className="posting-button-wrapper">
-                    <button onClick={handlePostingButton}>공고 등록</button>
-                    <button onClick={handleCancelButton}>취소</button>
+                    <button className='submit-button' onClick={handlePostingButton}>공고 등록</button>
+                    <button className='cancel-button' onClick={handleCancelButton}>취소</button>
                 </div>
             </div>
         </>
