@@ -1,0 +1,58 @@
+/* 전체 카드 컨테이너 */
+.card-container {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* 작성자, 제목, 전체보기 */
+.author-title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-detail-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+}
+.go-detail:hover {
+    transform: scale(1.1);
+}
+
+.title-wrapper {
+    margin: 15px 0px;
+}
+
+/* 기본 정보 */
+.post-basic-wrapper {
+    display: column;
+    margin-bottom: 20px;
+}
+
+.post-basic-wrapper .date {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 본문 및 분석 결과 */
+.post-analyze-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.open-job-detail {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
