@@ -4,30 +4,81 @@ import { Post, dummyPost } from '../../components/post/dummyJob';
 import './JobPostDetail.css'
 
 const JobPostDetail = () => {
+  
+  // 현재 요청받은 공고의 id
   const {id} = useParams<{id: string}>();
 
-  const postData: Post | undefined = dummyPost.find((post) => post.id === Number(id));
+  // 접속한 유저 정보
+  const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
 
+  // 공고 상세 정보
+  const postData: Post | undefined = JSON.parse(localStorage.getItem('postListData') || '[]').find((post: Post) => post.id === Number(id));
+
+  // 경력, 학력
   const careerString = ['경력 무관', '신입', '경력'];
-  const eduString = ['학력 무관', '고졸 이상', '대졸 이상', '석사 이상', '박사 이상'];
+  const eduString = ['학력 무관', '고졸 이상', '초대졸 이상', '대졸 이상', '석사 이상', '박사 이상'];
+
+  // D-day 계산/출력
   const dDay = () => {
     const day = postData?.endDate ? Math.floor((new Date(postData.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 0;
     if (day < 0){
       return "+ " + -day
     }
     else {
-      return day
+      return "- " + day
     }
   }
 
+  // 포스트가 없다면
   if (!postData) {
     return <p>Post not found</p>;
   }
 
   // 공개되지 않은 정보일 땐 로그인 유저를 확인하고 페이지를 로드할 지 말 지 정하기.
-  if (postData.isPublic === false) {
-    return <p>Post is not public</p>;
+  if(postData.isPublic === false || userData.isEnt === false || userData.account != postData.account){
+    return <p>Post is not public</p>
   }
+
+  const handleSubmit = () => {
+    //localstorage에 있는 postListData.applicantId 에 userData.id추가, userListData.applyList 에 postData.id추가
+    // 지원하기 버튼을 누르면 지원자 목록에 추가되고, 지원자가 지원한 공고 목록에 추가되어야 함.
+    const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
+    postListData.applicantId.push(userData.id);
+    localStorage.setItem('postListData', JSON.stringify(postListData));
+
+    const userListData = JSON.parse(localStorage.getItem('userListData') || '[]');
+    userListData.applyList.push(postData.id);
+    localStorage.setItem('userListData', JSON.stringify(userListData));
+
+
+  }
+
+  const handleApply = () => {
+    if (!userData){
+      return
+    }
+    if (!userData.isEnt) {
+
+      if(!postData.applicantId.includes(userData.id)){
+        return 
+      }
+      else{
+        return(
+          <>
+            <button disabled>지원완료</button>
+          </>
+        )
+      }
+    }
+    if (userData.isEnt && userData.account === postData.account) {
+      return (
+        <>
+          <button>수정하기</button>
+        </>
+      )
+    }
+  }
+
 
   return (
     <>
@@ -41,7 +92,7 @@ const JobPostDetail = () => {
         </div>
 
         <div className="post-title-container">
-          <div className="post-author">{postData.author}</div>
+          <div className="post-author">{postData.username}</div>
           <div className="post-title">{postData.title}</div>
           <div className="dday-apply-wrapper">
             <div className="post-date">
@@ -81,12 +132,7 @@ const JobPostDetail = () => {
         </div>
 
         <div className="submit-container">
-          {/* 일반사용자라면 */}
-          <button>지원하기</button>
-          {/* 공고를 쓴 기업사용자라면 */}
-          <button>수정하기</button>
-          {/* 공고를 쓰지 않은 기업사용자라면 */}
-          <button disabled>수정하기</button>
+          {handleApply()}
         </div>
 
       </div>
