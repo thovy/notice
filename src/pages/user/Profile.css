@@ -1,0 +1,116 @@
+/* Profile.css */
+
+.main-profile-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px 20px 20px;
+    box-sizing: border-box;
+  }
+  
+  .container-title-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .container-title-wrapper p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .user-info-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-detail-wrapper {
+    flex: 1;
+    border-right: 1px solid #ffffff;
+  }
+  
+  .username {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .user-subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .user-info-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-info p {
+    margin: 0;
+  }
+  
+  .info-button-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .info-button-wrapper button {
+    margin-right: 10px;
+  }
+  
+  
+  .user-post-wrapper {
+    flex: 1;
+  }
+  
+  .ab-list-container {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  
+  th {
+    font-weight: bold;
+  }
+  
+  .user-location, .user-career, .user-edu {
+    margin-bottom: 10px;
+  }
+  
+  .user-location p, .user-career p, .user-edu p {
+    margin: 0;
+  }
+  
+  .user-desc, .user-url {
+    margin-bottom: 20px;
+  }
+  
+  .user-desc p, .user-url p {
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {  
+    .user-detail-wrapper {
+      border-right: none;
+      padding-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .user-post-wrapper {
+      padding-left: 0;
+    }
+  }
