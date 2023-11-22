@@ -73,7 +73,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
   }, [selectedTSK])
 
   // TSK 버튼 list
-  const tskbuttonlist = ['tasks', 'knowledges', 'skills']
+  const tskbuttonlist = ['tasks', 'skills','knowledges']
 
   return (
     <>
