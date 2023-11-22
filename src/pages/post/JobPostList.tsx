@@ -23,17 +23,21 @@ const JobPostList = () => {
     // 전체보기 / 직무별보기 선택에 따른 데이터 필터링
     const filteredPostList = useMemo(()=>{
         if (!postList) return [];
+        // 매칭율 높은 순
         if (selectedView === 'matchRate'){
             const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
-            if (!userData) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            // 유저가 없으면 그냥 최신순
+            if (!userData || Object.keys(userData).length == 0) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            // 유저가 있지만 기업이라면 그냥 최신순
+            if (userData.isEnt) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            // 유저가 있고 일반회원이라면 매칭율 높은 순
             else{
                 return postList.sort((a, b) => b.matchRate[userData.id] - a.matchRate[userData.id]);
             }
         }
+        // 최신 순
         if (selectedView === 'recent') return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        // if (selectedView === 'total') return postList;
-        // postList를 post에 포함된 createAt을 기준으로 정렬
-
+        
         // 단순히 직무를 선택했을 때 직무만 보이는 게 아니라
         // tsk를 선택했을 때도 선택된 직무와 일정확률 이상이면 리스트에 보여지도록?
         if (selectedView === 'job') {

@@ -62,7 +62,7 @@ const JobPostDetail = () => {
   }
 
   const handleApply = () => {
-    if (!userData){
+    if (!userData || Object.keys(userData).length == 0){
       return(
         <>
           <button onClick={()=> alert('로그인이 필요합니다.')}>지원하기</button>
