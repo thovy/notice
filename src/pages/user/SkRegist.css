@@ -1,0 +1,47 @@
+/* SkRegist.css */
+
+.main-skregist-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+.container-title-wrapper {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.selected-contents, .unselected-contents {
+    margin-bottom: 20px;
+    min-height: 130px;
+    max-height: 40vw;
+    overflow: auto;
+}
+
+.selected-contents h1, .unselected-contents h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.selected-contents table, .unselected-contents table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.selected-contents th, .selected-contents td, .unselected-contents th, .unselected-contents td {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    text-align: left;
+}
+
+.skSubmit-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cancel-button {
+    background-color: #d7d7d7;
+    color: #FFF;
+}
