@@ -65,6 +65,7 @@
 .regist-button-wrapper {
     text-align: center;
     margin:0px;
+    display: contents;
 }
 
 .regist-button {
