@@ -11,6 +11,7 @@ const JobPostList = () => {
 
     const jobData:JobContents[] = dummyJob;
 
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
     const isEnt = useUserStore(state => state.isEnt);
 
     // 전체보기 / 직무별보기 선택 상태
@@ -56,9 +57,8 @@ const JobPostList = () => {
                 <div className="title-wrapper">
                     <p>채용공고 리스트</p>
                 </div>
-                {!isEnt ?
-                <></>
-                :<div className="regist-post-button-wrapper">
+                {isEnt && Object.keys(userData).length != 0 ?
+                <div className="regist-post-button-wrapper">
                     <Link to={'/job/posting'}>
                     <button
                         className="regist-post"
@@ -67,7 +67,7 @@ const JobPostList = () => {
                     </button>
                     </Link>
                 </div>
-                }
+                :<></>}
             </div>
             <div className="view-button-container">
                 <div className="view-button-wrapper">
