@@ -68,3 +68,8 @@
     transition: background-color 0.3s ease;
     margin: 0;
 }
+
+.submit-container .already {
+    background-color: #ccc;
+    cursor: default;
+}
