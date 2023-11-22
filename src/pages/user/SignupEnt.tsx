@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import './Signup.css'
+import './SignupEnt.css'
 
-const Signup = () => {
-
+const SignupEnt = () => {
+    
     // 희망 근무지 목록
     const locationList:any = ["서울", "경기", "인천", "부산", "대구", "광주", "대전", "울산", "세종", "기타",]
 
@@ -12,8 +12,8 @@ const Signup = () => {
         account: '',
         password: '',
         passwordCheck: '',
-        username: '',
-        isEnt: false,
+        companyname: '',
+        isEnt: true,
         location: "-1",
         companyDescription:"",
     })
@@ -35,12 +35,12 @@ const Signup = () => {
             alert('비밀번호가 일치하지 않습니다.')
             return false;
         }
-        if (signupFormData.username == "") {
-            alert('성명을 입력해주세요.')
+        if (signupFormData.companyname == "") {
+            alert('기업명을 입력해주세요.')
             return false;
         }
         if (signupFormData.location === "-1") {
-            alert('희망 근무지를 선택해주세요.')
+            alert('기업 위치를 선택해주세요.')
             return false;
         }
         return true;
@@ -74,11 +74,11 @@ const Signup = () => {
 
   return (
     <>
-        <div className="signup-container">
+        <div className="signup-container ent">
             <form onSubmit={handleSignup}>
                 <div className="signup-wrapper">
                     <div className="signup-title-wrapper">
-                        <p>회원가입</p>
+                        <p>기업용 회원가입</p>
                     </div>
                     <div className="signup-input-wrapper">
                         <div className="signup-id-wrapper">
@@ -112,18 +112,18 @@ const Signup = () => {
                             />
                         </div>
                         <div className="signup-username-wrapper">
-                            <label htmlFor="username">이름</label>
+                            <label htmlFor="username">기업명</label>
                             <input
                                 id='username'
                                 className="signup-username"
                                 type="text"
                                 placeholder="이름을 입력해주세요"
-                                onChange={(e) => setSignupFormData({...signupFormData, username: e.target.value})}
+                                onChange={(e) => setSignupFormData({...signupFormData, companyname: e.target.value})}
                             />
                         </div>
                         {/* 희망 근무지 / 기업의 위치 */}
                         <div className="signup-location-wrapper">
-                            <label htmlFor="location">희망 근무지를 선택해주세요</label>
+                            <label htmlFor="location">기업의 위치를 선택해주세요</label>
                             <select name="location" id="location"
                                 onChange={(e) => setSignupFormData({...signupFormData, location: e.target.value})}
                                 >
@@ -132,12 +132,21 @@ const Signup = () => {
                                     <option value={location}>{location}</option>
                                 ))}
                             </select>
+                            {/* 기업일 때 기업설명 추가 란을 추가 */}
+                            <div className='companyDescription-wrapper'>
+                                <label htmlFor="companyDescription">기업 설명</label>
+                                <textarea
+                                    id='companyDescription'
+                                    className="companyDescription"
+                                    onChange={(e) => setSignupFormData({...signupFormData, companyDescription: e.target.value})}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="signup-button-wrapper">
                         <button
                             className="signup-button"
-                        >회원가입</button>
+                        >기업용 회원가입</button>
                     </div>
                 </div>
             </form>
@@ -156,4 +165,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default SignupEnt
