@@ -223,7 +223,7 @@ const JobPostDetail = () => {
       // const skills = getSkillsByIds(postSkills);
       // const knowledge = getKnowledgesByIds(postKnowledge);
 
-      // 손호영 선임님이 만들어주심 
+      // 손호영 선임님이 만들어주심, 김민수 선임님 병풍코딩😀
       const func = (aJobContents: JobContents[]) => {
         const result: {
           tasks: Omit<TaskContents, "knowledges" | 'skills'>[];
@@ -240,11 +240,12 @@ const JobPostDetail = () => {
               result.tasks.push({category, description, id, title});
             }
             const filteredSkills = skills?.filter((skill) => postSkills.includes(skill.id));
-            filteredSkills && result.skills.push(...filteredSkills);
+            // undefined 일 수 있으니 ?? 로 [] 처리
+            result.skills.push(...filteredSkills ?? []);
             const filteredKnowledges = knowledges?.filter((knowledge) =>
               postKnowledge.includes(knowledge.id),
             );
-            filteredKnowledges && result.knowledges.push(...filteredKnowledges);
+            result.knowledges.push(...(filteredKnowledges ?? []));
           });
         }
         return result;
