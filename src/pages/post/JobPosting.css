@@ -7,6 +7,19 @@
     box-sizing: border-box;
 }
 
+.container-title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.container-title-wrapper p {
+    display: flex;
+}
+
 /* 공고 제목 입력 창 */
 .posting-title-wrapper {
     margin-bottom: 20px;

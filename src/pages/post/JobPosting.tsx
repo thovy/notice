@@ -13,12 +13,20 @@ const JobPosting: React.FC = () => {
     // 직무/TSK 선택 버튼 상태 관리
     const { selectedButton, setSelectedButton } = useJobTSKButtonStore();
 
+    const postLength:number = JSON.parse(localStorage.getItem('postListData') || '[]').length;
+    const userId:number = JSON.parse(sessionStorage.getItem('userData') || '{}').id;
+    const account:string = JSON.parse(sessionStorage.getItem('userData') || '{}').account;
+    const username = JSON.parse(sessionStorage.getItem('userData') || '{}').username;
+
+    // localstorage에 저장할 용도
     const [postingData, setPostingData] = useState({
+        id: postLength + 1,
         // 기본 공고 정보
-        author: '',
+        account: account,
+        username: username,
         title: '',
         etcContents: '',
-        // 공고 등록 날짜가 시작날짜
+        createdAt: "",
         startDate: "",
         // 종료 날짜를 설정하지 않으면 무기한.
         endDate: "",
@@ -31,10 +39,34 @@ const JobPosting: React.FC = () => {
         jobContentsId: '',
         tskContentsDict: {},
         // 공고 공개 여부
-        isPublic: false,
+        isPublic: true,
         // 지원자 정보
         applicantId: [],
+        isPass: [],
     })
+
+    // const [postingData, setPostingData] = useState({
+    //     // 기본 공고 정보
+    //     account: '',
+    //     title: '',
+    //     etcContents: '',
+    //     // 공고 등록 날짜가 시작날짜
+    //     startDate: "",
+    //     // 종료 날짜를 설정하지 않으면 무기한.
+    //     endDate: "",
+    //     isJob: selectedButton,
+    //     career: 0,
+    //     edu: 0,
+    //     // 분석 결과
+    //     analyzeResult: '',
+    //     // 직무/tsk 정보
+    //     jobContentsId: '',
+    //     tskContentsDict: {},
+    //     // 공고 공개 여부
+    //     isPublic: false,
+    //     // 지원자 정보
+    //     applicantId: [],
+    // })
 
     // 선택된 직무/TSK 내용 저장
     const handleJobTskContents = (jobTskContents: string) => {
@@ -47,9 +79,46 @@ const JobPosting: React.FC = () => {
 
     // 공고 등록 버튼
     const handlePostingButton = () => {
+
+        function checkDate(date: string){
+            if (date === "") return '';
+            return date + 'T00:00:00.000Z';
+        }
+
         try{
+
+            // localstorage에 저장하기 위해
+            // postingData의 createdAt과 startDate, endDate를 수정해야합니다.
+            const editedPostingData = {...postingData, 
+                createdAt: new Date().toLocaleDateString('ko-KR').replace(/\./g, '-').replace(/ /g, '').replace(/-$/,'') + 'T00:00:00.000Z',
+                startDate: checkDate(postingData.startDate),
+                endDate: checkDate(postingData.endDate),
+            };
+
+            // localstorage에 저장
+            const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
+            postListData.push(editedPostingData);
+            console.log(postListData);
+            
+            localStorage.setItem('postListData', JSON.stringify(postListData));
+
+            // localStorage에서 userListData를 불러와서 해당 유저의 applyList에 postingData.id를 추가
+            const userListData = JSON.parse(localStorage.getItem('userListData') || '[]');
+            const userData = userListData.find((user:any) => user.id === userId);
+            userData.applyList.push(editedPostingData.id);
+            localStorage.setItem('userListData', JSON.stringify(userListData));
+            // list는 원본이 수정되기 때문에 잘 들어가는 거 같음 ;;
+
             // server api 가 완성되면 fetch api로 바꿔야합니다
-            console.log('postingData', postingData);
+            console.log('postingData', editedPostingData);
+
+            // 공고 등록 후 이전 페이지로 이동
+            // 페이지 리로드
+            window.location.reload();
+            navigate(-1);
+
+
+            // 삭제 불가능 안내 알림 넣기 / 수정은 가능
         }
         catch (e){
             console.error(e, '공고 등록 실패')
@@ -71,7 +140,9 @@ const JobPosting: React.FC = () => {
     return (
         <>
             <div className="main-posting-container">
-                <h1>공고 등록</h1>
+                <div className="container-title-wrapper">
+                    <p>채용공고 등록</p>
+                </div>
                 {/* 공고 제목 입력 창  title */}
                 <div className="posting-title-wrapper">
                     <label htmlFor="posting-title">공고 제목</label>
@@ -152,8 +223,8 @@ const JobPosting: React.FC = () => {
                             <select id="posting-ispublic" 
                                 onChange={(e) => setPostingData({...postingData, isPublic: Boolean(e.target.value)})}
                                 >
-                                <option value="false">비공개</option>
                                 <option value="true">공개</option>
+                                <option value="false">비공개</option>
                             </select>
                         </div>
                     </div>
