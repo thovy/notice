@@ -1,7 +1,7 @@
 /* 헤더 컨테이너 */
 .header-container {
     width: 100%;
-    background-color: #007BFF;
+    background-color: #ffffff;
     padding: 15px 0;
     position: fixed;
     z-index: 999;
@@ -19,9 +19,13 @@
 /* 로고 */
 .header-logo p {
     font-size: 24px;
-    color: #fff;
+    color: var(--main-color);
     font-weight: bold;
     margin: 0;
+}
+
+.header-logo a {
+    text-decoration: none;
 }
 
 /* 메뉴 */
@@ -34,12 +38,28 @@
 }
 
 .header-menu a {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
 }
 
 /* 사용자 */
+
+.header-user button {
+    margin: 0px;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+}
+
 .header-user a {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
+}
+
+.header-username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
 }
