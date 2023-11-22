@@ -14,7 +14,7 @@ const JobPostList = () => {
     const isEnt = useUserStore(state => state.isEnt);
 
     // 전체보기 / 직무별보기 선택 상태
-    const [selectedView, setSelectedView] = useState('recent');
+    const [selectedView, setSelectedView] = useState('matchRate');
 
     // 직무별보기에서 직무 선택 버튼
     const [selectedJob, setSelectedJob] = useState("-1")
@@ -23,7 +23,14 @@ const JobPostList = () => {
     // 전체보기 / 직무별보기 선택에 따른 데이터 필터링
     const filteredPostList = useMemo(()=>{
         if (!postList) return [];
-        if (selectedView === 'recent') return postList.sort((a, b) => b.createdAt.valueOf() - a.createdAt.valueOf());
+        if (selectedView === 'matchRate'){
+            const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+            if (!userData) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            else{
+                return postList.sort((a, b) => b.matchRate[userData.id] - a.matchRate[userData.id]);
+            }
+        }
+        if (selectedView === 'recent') return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         // if (selectedView === 'total') return postList;
         // postList를 post에 포함된 createAt을 기준으로 정렬
 
@@ -60,6 +67,11 @@ const JobPostList = () => {
             </div>
             <div className="view-button-container">
                 <div className="view-button-wrapper">
+                    <button
+                        className={`view-button ${selectedView === 'matchRate' ? 'active' : ''}`}
+                        onClick={()=>setSelectedView('matchRate')}
+                    >매칭율 높은 순
+                    </button>
                     <button
                         className={`view-button ${selectedView === 'recent' ? 'active' : ''}`}
                         onClick={()=>setSelectedView('recent')}
