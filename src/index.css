@@ -1,5 +1,6 @@
 :root {
-  --main-color: #6ee072;
+  /* --main-color: #6ee072; */
+  --main-color: #25BC74;
   --main-color-font-color: #ffffff;
   --button-background: var(--main-color);
   --button-hover: #0056b3;
