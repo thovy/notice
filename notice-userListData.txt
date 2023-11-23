@@ -8,7 +8,7 @@
     "career":1,
     "edu":2,
     "applyList":[1,2,3],
-    "bookmarkList":[6,7,8],
+    "bookmarkList":[5, 6,7,8],
     "skills":["S0003","S0004"],
     "knowledges":["K0001","K0002","K0003"]
   },
@@ -119,7 +119,7 @@
     "location":"경기",
     "career":1,
     "edu":3,
-    "applyList":[7,1,2],
+    "applyList":[7,10,9,6,8],
     "bookmarkList":[3,4,5],
     "skills":["S0003","S0004"],
     "knowledges":["K0001","K0002","K0003"]
