@@ -96,13 +96,13 @@ const ApplicantDetail = () => {
                 <div className="detail-table-wrapper">
                     { skills?<>
                     <div className="detail-table">
-                        <h1>요구 스킬</h1>
+                        <h1>보유 스킬</h1>
                         {spreadTSK(skills)}
                     </div>
                     </> : <></> }
                     { knowledges?<>
                     <div className="detail-table">
-                        <h1>요구 지식</h1>
+                        <h1>보유 지식</h1>
                         {spreadTSK(knowledges)}
                     </div>
                     </> : <></> }
