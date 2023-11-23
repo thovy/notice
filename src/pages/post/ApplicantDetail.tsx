@@ -101,8 +101,8 @@ const ApplicantDetail = () => {
 
   const applicantStatusResult = (
     applicantStatus == 1 ?
-    <button disabled>합격</button>:
-    <button disabled>불합격</button>
+    <button disabled className='pass'>합격</button>:
+    <button disabled className='fail'>불합격</button>
   );
 
   return (
@@ -124,7 +124,7 @@ const ApplicantDetail = () => {
                   </div>
                 </div>
                 <div className="applicant-status-wrapper">
-                  {applicantStatus == 0 ?
+                  {!applicantStatus || applicantStatus == 0 ?
                   <>
                     <button onClick={()=>handlePass()}>합격</button>
                     <button onClick={()=>handleFail()}>불합격</button>
