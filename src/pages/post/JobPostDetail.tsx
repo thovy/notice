@@ -4,6 +4,7 @@ import { Post, dummyPost, dummyJob, JobContents, TaskContents, SkillContents, Kn
 import './JobPostDetail.css'
 import { log } from 'console';
 import PostTSKList from '../../components/post/detail/PostTSKList';
+import { useUserStore } from '../../store/user/UserDataStore';
 
 const JobPostDetail = () => {
   
@@ -12,6 +13,7 @@ const JobPostDetail = () => {
 
   // 접속한 유저 정보
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+  const userApplyList = useUserStore(state => state.applyList)
 
   // 공고 상세 정보
   const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
@@ -55,8 +57,8 @@ const JobPostDetail = () => {
     modifyUser.applyList.push(postData.id);
     localStorage.setItem('userListData', JSON.stringify(userListData));
 
-    console.log(postListData);
-    console.log(userListData);
+    sessionStorage.clear();
+    sessionStorage.setItem('userData', JSON.stringify(modifyUser));
     
     alert('지원이 완료되었습니다.');
     window.location.reload();
@@ -72,7 +74,8 @@ const JobPostDetail = () => {
     }
     if (!userData.isEnt) {
 
-      if(!userData.applyList.includes(postData.id)){
+      if(!userApplyList.includes(postData.id)){
+        
         return (
           <>
             <button onClick={()=> handleSubmit()}>지원하기</button>
