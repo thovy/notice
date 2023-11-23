@@ -33,11 +33,18 @@ const Home = () => {
     <>
       <div className="main-home-container">
         <div className="main-wrapper">
-          <div className="main-title">
-            <p>NOTICE</p>
-          </div>
-          <div className="main-desc">
-            <p>채용공고와 직무분석을 한번에!</p>
+          <div className="main-desc-container">
+            <div className="main-desc-image">
+            </div>
+            <div className="main-desc-word">
+              <div className="main-title">
+                <p>NOTICE</p>
+              </div>
+              <div className="main-desc">
+                <p>나의 역량에 맞는 회사를 손쉽게!</p>
+                <p>회사 직무에 맞는 사람을 손쉽게!</p>
+              </div>
+            </div>
           </div>
           <div className="post-list-container">
             <div className="post-list-title-container">
