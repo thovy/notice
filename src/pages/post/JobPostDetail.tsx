@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Post, dummyPost, dummyJob, JobContents, TaskContents, SkillContents, KnowledgeContents } from '../../components/post/dummyJob';
 import './JobPostDetail.css'
 import { log } from 'console';
@@ -90,7 +90,9 @@ const JobPostDetail = () => {
     if (userData.isEnt && userData.account === postData.account) {
       return (
         <>
-          <button>수정하기</button>
+          <Link to={`/job/post/${postData.id}/applicant`}>
+          <button>지원자 확인하기</button>
+          </Link>
         </>
       )
     }
