@@ -1,0 +1,10 @@
+.main-home-container{
+    padding: 100px 20px 20px 20px;
+}
+
+.post-list-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
