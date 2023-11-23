@@ -72,7 +72,7 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
             return (
                 <>
                     <h4>역량 일치율</h4>
-                    <p>{postData.matchRate[userData.id]}</p>
+                    <p>{postData.matchRate[userData.id] * 100} %</p>
                 </>
             )
         }
