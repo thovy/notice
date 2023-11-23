@@ -110,7 +110,11 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             </thead>
             <tbody>
                 {contents.map((content:any) => (
-                    <tr key={content.id} onClick={()=> handlePostDetail(content.id)} className='post-list-tbody'>
+                    <tr 
+                        key={content.id} 
+                        onClick={()=> handlePostDetail(content.id)}
+                        className='post-list-tbody'
+                    >
                         <td>{content.title}</td>
                         <td>{isPass(content)}</td>
                         {/* <td>{matchRate(content)}</td> */}

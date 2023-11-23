@@ -40,6 +40,9 @@ const ApplycontentsListEnt: React.FC<ChildApplyComponent> = ({ account }) => {
     return (
         <>
             <div className="list-container">
+                <div className="list-title-wrapper">
+                    <p>작성한 채용공고 리스트</p>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -51,7 +54,11 @@ const ApplycontentsListEnt: React.FC<ChildApplyComponent> = ({ account }) => {
                     </thead>
                     <tbody>
                         {contents.map((content: any) => (
-                            <tr key={content.id} onClick={() => handlePostDetail(content.id)}>
+                            <tr 
+                                key={content.id}
+                                onClick={() => handlePostDetail(content.id)}
+                                className='post-list-tbody'
+                            >
                                 <td>{content.title}</td>
                                 <td>{status(content)}</td>
                                 <td>{content.applicantId.length}</td>
