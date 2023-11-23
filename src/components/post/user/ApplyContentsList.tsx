@@ -50,13 +50,14 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             // const result = getData()
             // return result;
             const result = dummyPost.filter((post) => userApplyList.includes(post.id));
-            
+            result.sort((a:Post, b:Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             return result;
         }
         if(selectedButton === 'bookmark'){
             // const result = getData()
             // return result;
             const result = dummyPost.filter((post) => userBookmarkList.includes(post.id));
+            result.sort((a:Post, b:Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             return result;
         }
         return [];
@@ -83,6 +84,10 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
 
     // }, [userId])
 
+    const handlePostDetail = (id:number) => {
+        window.location.href = `/job/post/${id}`;
+    }
+
   return (
     <>
     
@@ -105,7 +110,7 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             </thead>
             <tbody>
                 {contents.map((content:any) => (
-                    <tr key={content.id} >
+                    <tr key={content.id} onClick={()=> handlePostDetail(content.id)} className='post-list-tbody'>
                         <td>{content.title}</td>
                         <td>{isPass(content)}</td>
                         {/* <td>{matchRate(content)}</td> */}
