@@ -32,7 +32,7 @@ const ApplicantThumb:React.FC<ChildComponentProps> = ({userData, postData}) => {
 
   return (
     <>
-      <Link to={`/applicant/${userData.id}`} style={{ textDecoration: 'none' }}>
+      <Link to={`/job/post/${postData?.id}/applicant/${userData.id}`} style={{ textDecoration: 'none' }}>
         <div className="card-container">
           <div className="author-title-container">
             <div className="title-bookmark-wrapper">
