@@ -12,15 +12,22 @@ const ApplicantDetail = () => {
   const userListData = JSON.parse(localStorage.getItem('userListData') || '[]');
   const userData: any = userListData.find((user: any) => user.id === Number(applicantId));
 
+  // 공고 상세 정보
+  const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
+  const postData: any = postListData.find((post: any) => post.id === Number(postId));
+
+
   // 경력, 학력
   const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
   const eduString = ['학력 무관', '고졸 이상', '초대졸 이상','대졸 이상', '석사 이상', '박사 이상'];
 
-
-
   // 지원자가 가진 sk 정보
   const userSkills:string[] = userData.skills || [];
   const userKnowledges:string[] = userData.knowledges || [];
+
+  // 지원자의 status
+  const applicantIndex = postData.applicantId.indexOf(Number(applicantId));
+  const applicantStatus = postData.isPass[applicantIndex];
 
   const spreadTSK = (tsk: any) => {
     if (tsk.length === 0) return <></>;
@@ -46,6 +53,7 @@ const ApplicantDetail = () => {
     )
   }
 
+  // 유저가 가진 sk 를 뽑아내줌
   const userSKList = (aJobContents:JobContents[]) => {
     const result: {skills: SkillContents[]; knowledges: KnowledgeContents[];
     } = {skills: [], knowledges: []};
@@ -69,6 +77,34 @@ const ApplicantDetail = () => {
 
   const {skills, knowledges} = userSKList(dummyJob);
 
+  // 합격
+  const handlePass = () => {
+    const confirmResult = window.confirm('합격 처리하시겠습니까?');
+    if (confirmResult) {
+      postData.isPass[applicantIndex] = 1;
+      localStorage.setItem('postListData', JSON.stringify(postListData));
+      alert('합격 처리되었습니다.');
+      window.location.reload();
+    }
+  }
+  
+  // 불합격
+  const handleFail = () => {
+    const confirmResult = window.confirm('불합격 처리하시겠습니까?');
+    if (confirmResult) {
+      postData.isPass[applicantIndex] = 2;
+      localStorage.setItem('postListData', JSON.stringify(postListData));
+      alert('불합격 처리되었습니다.');
+      window.location.reload();
+    }
+  }
+
+  const applicantStatusResult = (
+    applicantStatus == 1 ?
+    <button disabled>합격</button>:
+    <button disabled>불합격</button>
+  );
+
   return (
     <>
         <div className="applicant-detail-container">
@@ -88,7 +124,13 @@ const ApplicantDetail = () => {
                   </div>
                 </div>
                 <div className="applicant-status-wrapper">
-                  <button>합격/불합격</button>
+                  {applicantStatus == 0 ?
+                  <>
+                    <button onClick={()=>handlePass()}>합격</button>
+                    <button onClick={()=>handleFail()}>불합격</button>
+                  </>
+                  :<>{applicantStatusResult}</>
+                  }
                 </div>
             </div>
             <div className="applicant-skcontents-list-container">
