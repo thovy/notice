@@ -1,6 +1,8 @@
 :root {
   /* --main-color: #6ee072; */
-  --main-color: #25BC74;
+  --main-color: #25bc73;
+  --main-color-rate2: hsla(151, 67%, 44%, 0.2);
+  --main-color-rate8: hsla(151, 67%, 44%, 0.8);
   --main-color-font-color: #ffffff;
   --button-background: var(--main-color);
   --button-hover: #0056b3;

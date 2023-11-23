@@ -96,6 +96,36 @@ const JobPostDetail = () => {
     }
   }
 
+  const analyzePercent = () => {
+    if (!userData || Object.keys(userData).length == 0) {return(
+      <>
+        <p className="container-title">분석 결과</p>
+        <div className="analyze-container">
+          <p>로그인 후 확인할 수 있습니다</p>
+        </div>
+        </>
+      )}
+    if (userData.isEnt) return <></>;
+    else{
+
+      const rate:number = postData.matchRate[userData.id] * 100
+
+      return (
+        <>
+          <p className="container-title">분석 결과</p>
+          <div className="analyze-container">
+            <div>
+              <p>나와의 역량 일치율 : </p>
+            </div>
+            <div className="rate">
+              <p> {rate} %</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+  }
+
   return (
     <>
       <div className="post-container">
@@ -122,10 +152,7 @@ const JobPostDetail = () => {
           </div>
         </div>
 
-        <p className="container-title">분석 결과</p>
-        <div className="analyze-container">
-          <p>{postData.analyzeResult}</p>
-        </div>
+        {analyzePercent()}
 
         <PostTSKList postData={postData} />
 

@@ -73,3 +73,22 @@
     background-color: #ccc;
     cursor: default;
 }
+
+.analyze-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color-rate8);
+    color: #FFF;
+    font-size: 25px;
+    font-weight: bolder;
+    margin:0px
+}
+
+.analyze-container p{
+    margin: 0px;
+}
+.analyze-container .rate p{
+    margin-left: 10px;
+    color: black;
+}
