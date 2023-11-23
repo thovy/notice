@@ -14,6 +14,7 @@ import Profile from './pages/user/Profile';
 import { useUserListStore, useUserStore } from './store/user/UserDataStore';
 import { usePostListStore } from './store/PostStore';
 import Update from './pages/user/Update';
+import ApplicantList from './pages/post/ApplicantList';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/job" element={<JobPostList />}/>
         <Route path="/job/post/:id" element={<JobPostDetail />}/>
+        <Route path="/job/post/:id/applicant" element={<ApplicantList />}/>
         <Route path="/job/posting" element={<JobPosting />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>
