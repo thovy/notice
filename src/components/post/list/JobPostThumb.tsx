@@ -11,7 +11,7 @@ interface ChildComponentProps {
 
 const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
     
-    const careerString = ['경력 무관', '신입', '경력'];
+    const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
     const eduString = ['학력 무관', '고졸 이상', '초대졸 이상','대졸 이상', '석사 이상', '박사 이상'];
 
     const formatDate = (dateString: Date) => {

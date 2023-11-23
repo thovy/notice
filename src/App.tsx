@@ -13,6 +13,7 @@ import SkRegist from './pages/user/SkRegist';
 import Profile from './pages/user/Profile';
 import { useUserListStore, useUserStore } from './store/user/UserDataStore';
 import { usePostListStore } from './store/PostStore';
+import Update from './pages/user/Update';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/ent/signup" element={<SignupEnt />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/profile/sk" element={<SkRegist />}/>
+        <Route path="/profile/edit" element={<Update />}/>
       </Routes>
     </BrowserRouter>
   );
