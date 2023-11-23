@@ -43,6 +43,7 @@ const JobPosting: React.FC = () => {
         // 지원자 정보
         applicantId: [],
         isPass: [],
+        matchRate: []
     })
 
     // const [postingData, setPostingData] = useState({
@@ -80,9 +81,21 @@ const JobPosting: React.FC = () => {
     // 공고 등록 버튼
     const handlePostingButton = () => {
 
+        // 날짜 관련 데이터 형태 수정 (createdAt, startDate, endDate)
         function checkDate(date: string){
             if (date === "") return '';
             return date + 'T00:00:00.000Z';
+        }
+
+        // matchRate 임의 생성
+        function generateMatchRate(): number[]{
+            const matchRate:number[] = [];
+            for ( let i=0; i<10; i++){
+                const randomNum = Math.random()*0.9+0.1;
+                const roundedTwo = Math.round(randomNum*100) / 100;
+                matchRate.push(roundedTwo);
+            }
+            return matchRate;
         }
 
         try{
@@ -93,6 +106,7 @@ const JobPosting: React.FC = () => {
                 createdAt: new Date().toLocaleDateString('ko-KR').replace(/\./g, '-').replace(/ /g, '').replace(/-$/,'') + 'T00:00:00.000Z',
                 startDate: checkDate(postingData.startDate),
                 endDate: checkDate(postingData.endDate),
+                matchRate: generateMatchRate(),
             };
 
             // localstorage에 저장

@@ -17,9 +17,6 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
 
     const dummyPost:Post[] = JSON.parse(localStorage.getItem('postListData') || '[]');
 
-    console.log(dummyPost);
-    
-
     const getData = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/user/${selectedButton}`, {
@@ -53,15 +50,14 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             // const result = getData()
             // return result;
             const result = dummyPost.filter((post) => userApplyList.includes(post.id));
-            console.log(result);
-            
+            result.sort((a:Post, b:Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             return result;
         }
         if(selectedButton === 'bookmark'){
             // const result = getData()
             // return result;
             const result = dummyPost.filter((post) => userBookmarkList.includes(post.id));
-            console.log(result);
+            result.sort((a:Post, b:Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             return result;
         }
         return [];
@@ -73,7 +69,7 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
         const index = post.applicantId.indexOf(userId);
         const isPass = post.isPass[index];
 
-        if (isPass === 0) return '지원중';
+        if (isPass === 0) return '지원완료';
         if (isPass === 1) return '합격';
         if (isPass === 2) return '불합격';
         
@@ -87,6 +83,10 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
     //     return matchRate
 
     // }, [userId])
+
+    const handlePostDetail = (id:number) => {
+        window.location.href = `/job/post/${id}`;
+    }
 
   return (
     <>
@@ -110,10 +110,16 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             </thead>
             <tbody>
                 {contents.map((content:any) => (
-                    <tr key={content.id} >
+                    <tr 
+                        key={content.id} 
+                        onClick={()=> handlePostDetail(content.id)}
+                        className='post-list-tbody'
+                    >
                         <td>{content.title}</td>
                         <td>{isPass(content)}</td>
                         {/* <td>{matchRate(content)}</td> */}
+                        <td>{content.matchRate[userId]}</td>
+
                     </tr>
                 ))}
             </tbody>

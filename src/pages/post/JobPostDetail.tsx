@@ -1,7 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Post, dummyPost } from '../../components/post/dummyJob';
+import { Link, useParams } from 'react-router-dom'
+import { Post, dummyPost, dummyJob, JobContents, TaskContents, SkillContents, KnowledgeContents } from '../../components/post/dummyJob';
 import './JobPostDetail.css'
+import { log } from 'console';
+import PostTSKList from '../../components/post/detail/PostTSKList';
 
 const JobPostDetail = () => {
   
@@ -12,7 +14,8 @@ const JobPostDetail = () => {
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
 
   // 공고 상세 정보
-  const postData: Post | undefined = JSON.parse(localStorage.getItem('postListData') || '[]').find((post: Post) => post.id === Number(id));
+  const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
+  const postData: Post | undefined = postListData.find((post: Post) => post.id === Number(id));
 
   // 경력, 학력
   const careerString = ['경력 무관', '신입', '경력'];
@@ -35,37 +38,51 @@ const JobPostDetail = () => {
   }
 
   // 공개되지 않은 정보일 땐 로그인 유저를 확인하고 페이지를 로드할 지 말 지 정하기.
-  if(postData.isPublic === false || userData.isEnt === false || userData.account != postData.account){
+  if(postData.isPublic === false && userData.account != postData.account){
     return <p>Post is not public</p>
   }
 
   const handleSubmit = () => {
     //localstorage에 있는 postListData.applicantId 에 userData.id추가, userListData.applyList 에 postData.id추가
     // 지원하기 버튼을 누르면 지원자 목록에 추가되고, 지원자가 지원한 공고 목록에 추가되어야 함.
-    const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
-    postListData.applicantId.push(userData.id);
+    console.log(postData.applicantId);
+    
+    postData.applicantId.push(userData.id);
     localStorage.setItem('postListData', JSON.stringify(postListData));
 
     const userListData = JSON.parse(localStorage.getItem('userListData') || '[]');
-    userListData.applyList.push(postData.id);
+    const modifyUser = userListData.find((user: any) => user.id === userData.id);
+    modifyUser.applyList.push(postData.id);
     localStorage.setItem('userListData', JSON.stringify(userListData));
 
-
+    console.log(postListData);
+    console.log(userListData);
+    
+    alert('지원이 완료되었습니다.');
+    window.location.reload();
   }
 
   const handleApply = () => {
-    if (!userData){
-      return
+    if (!userData || Object.keys(userData).length == 0){
+      return(
+        <>
+          <button onClick={()=> alert('로그인이 필요합니다.')}>지원하기</button>
+        </>
+      )
     }
     if (!userData.isEnt) {
 
-      if(!postData.applicantId.includes(userData.id)){
-        return 
+      if(!userData.applyList.includes(postData.id)){
+        return (
+          <>
+            <button onClick={()=> handleSubmit()}>지원하기</button>
+          </>
+        )
       }
       else{
         return(
           <>
-            <button disabled>지원완료</button>
+            <button className='already' disabled>지원완료</button>
           </>
         )
       }
@@ -73,12 +90,43 @@ const JobPostDetail = () => {
     if (userData.isEnt && userData.account === postData.account) {
       return (
         <>
-          <button>수정하기</button>
+          <Link to={`/job/post/${postData.id}/applicant`}>
+          <button>지원자 확인하기</button>
+          </Link>
         </>
       )
     }
   }
 
+  const analyzePercent = () => {
+    if (!userData || Object.keys(userData).length == 0) {return(
+      <>
+        <p className="container-title">분석 결과</p>
+        <div className="analyze-container">
+          <p>로그인 후 확인할 수 있습니다</p>
+        </div>
+        </>
+      )}
+    if (userData.isEnt) return <></>;
+    else{
+
+      const rate:number = Math.round(postData.matchRate[userData.id] * 100)
+
+      return (
+        <>
+          <p className="container-title">분석 결과</p>
+          <div className="analyze-container">
+            <div>
+              <p>나와의 역량 일치율 : </p>
+            </div>
+            <div className="rate">
+              <p> {rate} %</p>
+            </div>
+          </div>
+        </>
+      )
+    }
+  }
 
   return (
     <>
@@ -106,24 +154,14 @@ const JobPostDetail = () => {
           </div>
         </div>
 
-        <p className="container-title">직무 상세</p>
-        <div className="job-tsk-detail-container">
-          {postData.isJob == "job" ?
-            <p>{postData.jobContentsId}</p>
-            :
-            <p></p>
-          }
-        </div>
+        {analyzePercent()}
+
+        <PostTSKList postData={postData} />
 
         <p className="container-title">자격 요건</p>
         <div className="post-basic-container">
           <p>{careerString[postData.career]}</p>
           <p>{eduString[postData.edu]}</p>
-        </div>
-
-        <p className="container-title">분석 결과</p>
-        <div className="analyze-container">
-          <p>{postData.analyzeResult}</p>
         </div>
 
         <p className="container-title">기타 공고 내용</p>

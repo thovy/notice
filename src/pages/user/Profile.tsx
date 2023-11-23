@@ -30,7 +30,7 @@ const Profile = () => {
     const userBookmarkList = useUserStore(state => state.bookmarkList);
 
     
-    const careerString = ['경력 무관', '신입', '경력'];
+    const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
     const eduString = ['학력 무관', '고졸', '초대졸', '대졸', '석사', '박사'];
 
     const userDetail = useMemo(() => {
@@ -101,7 +101,10 @@ const Profile = () => {
                             <p>{userUsername} 님</p>
                         </div>
                         <div className="info-button-wrapper">
-                            <button className="info-button">정보 수정</button>
+                            <button
+                                className="info-button"
+                                onClick={() => {window.location.href="/profile/edit"}}
+                            >정보 수정</button>
                             {userIsEnt?
                             <></>
                             :

@@ -11,7 +11,7 @@ interface ChildComponentProps {
 
 const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
     
-    const careerString = ['경력 무관', '신입', '경력'];
+    const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
     const eduString = ['학력 무관', '고졸 이상', '초대졸 이상','대졸 이상', '석사 이상', '박사 이상'];
 
     const formatDate = (dateString: Date) => {
@@ -32,7 +32,7 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
 
     const handleBookmark = (event:any) => {
         event?.preventDefault();
-        if (!userData) {
+        if (!userData || Object.keys(userData).length == 0) {
             alert('로그인 후 이용해주세요.');
             return;
         }
@@ -53,10 +53,33 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
     }
 
     const isBookmarked = useMemo(() => {
-        if (!userData) return <p onClick={(e)=>handleBookmark(e)}>🤍</p>;
+        if (!userData || Object.keys(userData).length == 0) return <p onClick={(e)=>handleBookmark(e)}>🤍</p>;
         if (bookmarkList.includes(postData.id)) return <p onClick={(e)=>handleBookmark(e)}>💚</p>;
         else return <p onClick={(e)=>handleBookmark(e)}>🤍</p>;
     }, [userData, postData, bookmarkList])
+
+
+    const analyzeResult = () => {
+        // 로그인 안된 사용자는 확인할 수 없음
+        if (!userData || Object.keys(userData).length == 0) return (
+            <>
+                <h4>역량 일치율</h4>
+                <p>로그인 후 확인할 수 있습니다</p>
+            </>
+        )
+        // 로그인 후 
+        if (userData && !userData.isEnt) {
+
+            const rate = Math.round(postData.matchRate[userData.id] * 100)
+
+            return (
+                <>
+                    <h4>역량 일치율</h4>
+                    <p>{rate} %</p>
+                </>
+            )
+        }
+    }
     
     if (!postData) return null;
 
@@ -102,10 +125,7 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
             <div className="post-analyze-container">
                 <div className="analyze-wrapper">
                     <div className="analyze-result">
-                        {postData.isJob == 'job'
-                        ? <p>직무와 로그인된 유저의 매칭률</p>
-                        : <p>{postData.analyzeResult}</p>
-                        }
+                        {analyzeResult()}
                     </div>
                 </div>
             </div>

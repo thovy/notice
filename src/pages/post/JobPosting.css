@@ -1,7 +1,7 @@
 /* 전체 컨테이너 */
 .main-posting-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: auto;
     padding: 65px 20px 20px 20px;
     box-sizing: border-box;

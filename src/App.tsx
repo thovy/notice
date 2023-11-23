@@ -13,6 +13,9 @@ import SkRegist from './pages/user/SkRegist';
 import Profile from './pages/user/Profile';
 import { useUserListStore, useUserStore } from './store/user/UserDataStore';
 import { usePostListStore } from './store/PostStore';
+import Update from './pages/user/Update';
+import ApplicantList from './pages/post/ApplicantList';
+import ApplicantDetail from './pages/post/ApplicantDetail';
 
 function App() {
 
@@ -34,12 +37,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/job" element={<JobPostList />}/>
         <Route path="/job/post/:id" element={<JobPostDetail />}/>
+        <Route path="/job/post/:id/applicant" element={<ApplicantList />}/>
+        <Route path="/job/post/:postId/applicant/:applicantId" element={<ApplicantDetail/>}/>
         <Route path="/job/posting" element={<JobPosting />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/ent/signup" element={<SignupEnt />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/profile/sk" element={<SkRegist />}/>
+        <Route path="/profile/edit" element={<Update />}/>
       </Routes>
     </BrowserRouter>
   );

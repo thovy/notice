@@ -42,15 +42,9 @@ const Header = () => {
             </a>
           </div>
           <div className="header-menu-wrapper">
-            {
-              username === '' ?
-              <>
-              </>
-            :
             <div className="header-menu">
               <a href="/job">채용공고</a>
             </div>
-            }
             <div className="header-menu">
               직무분석
             </div>

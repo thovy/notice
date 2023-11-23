@@ -114,3 +114,15 @@
       padding-left: 0;
     }
   }
+
+
+  /* apply contents list component*/
+  .post-list-tbody:hover {
+    transform: scale(1.01);
+    background-color: var(--main-color-rate2);
+  }
+
+  .list-title-wrapper p{
+    font-size: 15px;
+    font-weight: bold;
+  }

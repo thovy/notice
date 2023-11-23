@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { dummyPost } from '../dummyJob';
+import { Post, dummyPost } from '../dummyJob';
 
 interface ChildApplyComponent {
     account: string;
@@ -7,14 +7,12 @@ interface ChildApplyComponent {
 
 const ApplycontentsListEnt: React.FC<ChildApplyComponent> = ({ account }) => {
     
-    const contents = dummyPost.filter((post) => post.account === account);
+    const contents = JSON.parse(localStorage.getItem('postListData') || '[]').filter((post:Post) => post.account === account);
+    contents.sort((a:Post, b:Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     const status = useMemo(() => (content:any) => {
         const today = new Date();
         const todayTime = today.getTime();
-        console.log(content.id);
-        console.log(content.startDate);
-        console.log(content.endDate);
             
         if (!content.endDate || !content.startDate) {
             return '상시';
@@ -42,20 +40,29 @@ const ApplycontentsListEnt: React.FC<ChildApplyComponent> = ({ account }) => {
     return (
         <>
             <div className="list-container">
+                <div className="list-title-wrapper">
+                    <p>작성한 채용공고 리스트</p>
+                </div>
                 <table>
                     <thead>
                         <tr>
                             <th>공고 제목</th>
                             <th>상태</th>
                             <th>지원 현황</th>
+                            <th>작성일</th>
                         </tr>
                     </thead>
                     <tbody>
                         {contents.map((content: any) => (
-                            <tr key={content.id} onClick={() => handlePostDetail(content.id)}>
+                            <tr 
+                                key={content.id}
+                                onClick={() => handlePostDetail(content.id)}
+                                className='post-list-tbody'
+                            >
                                 <td>{content.title}</td>
                                 <td>{status(content)}</td>
                                 <td>{content.applicantId.length}</td>
+                                <td>{content.createdAt.split('T')[0]}</td>
                             </tr>
                         ))}
                     </tbody>

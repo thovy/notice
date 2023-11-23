@@ -1,0 +1,67 @@
+.main-home-container{
+    padding: 100px 20px 20px 20px;
+}
+
+.post-list-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-desc-image {
+    background-image: url('/src/assets/main_img.png');
+    width: 100%;
+    height: 50vw;
+    max-height: 400px;
+    flex: 1;
+}
+
+  .main-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-desc-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .main-desc-word {
+    flex: 1;
+    padding: 20px;
+    background-color: #f2f2f2;
+    /* 다른 스타일링 속성 추가 가능 */
+  }
+  
+  .main-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .main-desc {
+    /* 다른 스타일링 속성 추가 가능 */
+  }
+  
+  .post-list-container {
+    margin-bottom: 20px;
+  }
+  
+  .title-wrapper {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .more-wrapper a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .post-list-contents-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
