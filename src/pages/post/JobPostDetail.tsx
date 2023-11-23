@@ -108,7 +108,7 @@ const JobPostDetail = () => {
     if (userData.isEnt) return <></>;
     else{
 
-      const rate:number = postData.matchRate[userData.id] * 100
+      const rate:number = Math.round(postData.matchRate[userData.id] * 100)
 
       return (
         <>

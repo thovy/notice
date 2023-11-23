@@ -69,10 +69,13 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
         )
         // 로그인 후 
         if (userData && !userData.isEnt) {
+
+            const rate = Math.round(postData.matchRate[userData.id] * 100)
+
             return (
                 <>
                     <h4>역량 일치율</h4>
-                    <p>{postData.matchRate[userData.id] * 100} %</p>
+                    <p>{rate} %</p>
                 </>
             )
         }
