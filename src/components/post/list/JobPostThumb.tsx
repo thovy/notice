@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import JobPostListModal from './JobPostListModal';
 import './JobPostThumb.css'
 import { useUserStore } from '../../../store/user/UserDataStore';
+import { log } from 'console';
 
 interface ChildComponentProps {
   postData: Post;
+  similarity?: number;
 }
 
-const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
+const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
     
     const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
     const eduString = ['학력 무관', '고졸 이상', '초대졸 이상','대졸 이상', '석사 이상', '박사 이상'];
@@ -70,12 +72,10 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData}) => {
         // 로그인 후 
         if (userData && !userData.isEnt) {
 
-            const rate = Math.round(postData.matchRate[userData.id] * 100)
-
             return (
                 <>
                     <h4>역량 일치율</h4>
-                    <p>{rate} %</p>
+                    <p>{similarity} %</p>
                 </>
             )
         }
