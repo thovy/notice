@@ -40,8 +40,16 @@ const JobPostList = () => {
             : postData.tskContentsDict.knowledges || [];
 
         // 공통적인 sk
-        const commonSkills:Set<string> = new Set(userSkills.filter((skill:string) => postSkills?.includes(skill)));
-        const commonKnowledges:Set<string> = new Set(userKnowledges.filter((knowledge:string) => postKnowledges?.includes(knowledge)));
+        if (!userSkills || !userKnowledges){
+            
+        };
+        const commonSkills:Set<string> = !userSkills
+            ? new Set()
+            : new Set(userSkills.filter((skill:string) => postSkills?.includes(skill)))
+
+        const commonKnowledges:Set<string> = !userKnowledges
+            ? new Set()
+            : new Set(userKnowledges.filter((knowledge:string) => postKnowledges?.includes(knowledge)))
 
         // 공통 sk 갯수
         const commonSkillsCount:number = commonSkills.size;
@@ -70,9 +78,15 @@ const JobPostList = () => {
             // 유저가 없으면 그냥 최신순
             if (!userData || Object.keys(userData).length == 0) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             // 유저가 있지만 기업이라면 그냥 최신순
-            if (userData.isEnt) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            if (userData.isEnt) {
+                console.log(userData.isEnt);
+
+                return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            }
             // 유저가 있고 일반회원이라면 매칭율 높은 순
             else{
+                console.log(userData.isEnt);
+                
                 return postList.sort((a, b) => analyzePercent(b) - analyzePercent(a));
             }
         }
