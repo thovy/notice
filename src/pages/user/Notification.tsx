@@ -10,6 +10,11 @@ const Notification = () => {
     // userData
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
 
+    // 북마크한 게 없다면 profile페이지로
+    if (userData.bookmarkList.length == 0 || !userData.bookmarkList) {
+        window.location.href = '/profile';
+    }
+
     const postListData:Post[] = JSON.parse(localStorage.getItem('postListData') || '[]');
     // userData가 가지고 있는 bookmarkList(number[])를 가지고 각 id가 일치하는 postData를 찾아야합니다.
     const bookmarkedPostList = postListData.filter((post:Post) => userData.bookmarkList.includes(post.id));
