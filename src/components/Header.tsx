@@ -18,6 +18,9 @@ const Header = () => {
     } else {
       return (
         <>
+        <div className="header-notification">
+          <a href="/notification">🔔</a>
+        </div>
         <div className="header-username">
           <a href="/profile">{username} 님</a>
         </div>
