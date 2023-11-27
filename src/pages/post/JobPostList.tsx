@@ -40,9 +40,7 @@ const JobPostList = () => {
             : postData.tskContentsDict.knowledges || [];
 
         // 공통적인 sk
-        if (!userSkills || !userKnowledges){
-            
-        };
+        // user 가 isEnt 일 때 userskills와 userKnowledges가 없어서 분리해줘야합니다.
         const commonSkills:Set<string> = !userSkills
             ? new Set()
             : new Set(userSkills.filter((skill:string) => postSkills?.includes(skill)))
@@ -63,10 +61,10 @@ const JobPostList = () => {
         
         // localstorage에 저장된 게시글의 매칭율 업데이트
         // jobdetail 에 사용하기 위함임.
-        postData.matchRate[userData.id] = similarity;
+        postData.matchRate[userData.id] = Math.round(similarity * 10^2) / 10^2;
         localStorage.setItem('postListData', JSON.stringify(postList));
 
-        return similarity;
+        return postData.matchRate[userData.id];
     }
 
     // 전체보기 / 직무별보기 선택에 따른 데이터 필터링
@@ -79,15 +77,15 @@ const JobPostList = () => {
             if (!userData || Object.keys(userData).length == 0) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             // 유저가 있지만 기업이라면 그냥 최신순
             if (userData.isEnt) {
-                console.log(userData.isEnt);
-
                 return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             }
             // 유저가 있고 일반회원이라면 매칭율 높은 순
             else{
-                console.log(userData.isEnt);
-                
-                return postList.sort((a, b) => analyzePercent(b) - analyzePercent(a));
+                // post가 가진 endDate 보다 현재 날짜가 더 크면 return 하지 않음.
+                const now = new Date();
+                // post에 endDate가 없다면 resultList에 포함
+                const resultList = postList.filter((post) => !post.endDate || new Date(post.endDate) > now);
+                return resultList.sort((a, b) => analyzePercent(b) - analyzePercent(a));
             }
         }
         // 최신 순

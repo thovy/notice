@@ -63,10 +63,10 @@ const ApplicantList = () => {
         
         // localstorage에 저장된 게시글의 매칭율 업데이트
         // jobdetail 에 사용하기 위함임.
-        postData.matchRate[userData.id] = similarity;
+        postData.matchRate[userData.id] = Math.round(similarity * 10^2) / 10^2;
         localStorage.setItem('postListData', JSON.stringify(postList));
 
-        return similarity;
+        return postData.matchRate[userData.id];
     }
 
 
