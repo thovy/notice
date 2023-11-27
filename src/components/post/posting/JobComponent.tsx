@@ -50,7 +50,7 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
                 }
             >
                 <option value={-1} >직무를 선택해주세요.</option>
-                {jobData.map((jobContent:any, index:any) => (
+                {jobData.map((jobContent:JobContents, index:any) => (
                     <option key={jobContent.id} value={index}>
                         {jobContent.title}
                     </option>

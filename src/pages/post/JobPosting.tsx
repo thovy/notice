@@ -71,7 +71,7 @@ const JobPosting: React.FC = () => {
 
     // 선택된 직무/TSK 내용 저장
     const handleJobTskContents = (jobTskContents: string) => {
-        setPostingData({...postingData, jobContentsId: jobTskContents});
+        setPostingData({...postingData, jobContentsId: "J000" + jobTskContents});
     }
 
     const handleTSKContents = (tskContents: any) => {
