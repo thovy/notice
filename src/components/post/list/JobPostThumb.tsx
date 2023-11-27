@@ -44,6 +44,7 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
                 // userData.bookmarkList = userData.bookmarkList.filter((bookmark:any) => bookmark !== postData.id);
                 // sessionStorage.setItem('userData', JSON.stringify(userData));
                 handleBookmarkStore(postData.id)
+
             }
             else{
                 alert('북마크에 추가되었습니다.');
@@ -51,6 +52,10 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
                 // sessionStorage.setItem('userData', JSON.stringify(userData));
                 handleBookmarkStore(postData.id)
             }
+            const userListData = JSON.parse(localStorage.getItem('userListData') || '{}');
+            const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+            userListData[userData.id -1] = userData;
+            localStorage.setItem('userListData', JSON.stringify(userListData));
         }
     }
 
