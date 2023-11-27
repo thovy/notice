@@ -43,9 +43,6 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
         return (
         <>
             <div className="detail-desc-container">
-            <div className="detail-title">
-                <p>{currentJob[0].title}</p>
-            </div>
             <div className="detail-table-wrapper">
                 { tasks?<>
                 <div className="detail-table">

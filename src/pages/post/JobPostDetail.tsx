@@ -7,6 +7,9 @@ import PostTSKList from '../../components/post/detail/PostTSKList';
 import { useUserStore } from '../../store/user/UserDataStore';
 
 const JobPostDetail = () => {
+
+  // dummyJob 데이터
+  const dummyJobData:JobContents[] = dummyJob;
   
   // 현재 요청받은 공고의 id
   const {id} = useParams<{id: string}>();
@@ -104,7 +107,7 @@ const JobPostDetail = () => {
   const displayPercent = () => {
     if (!userData || Object.keys(userData).length == 0) {return(
       <>
-        <p className="container-title">분석 결과</p>
+        <p className="container-title">역량 일치율 분석 결과</p>
         <div className="analyze-container">
           <p>로그인 후 확인할 수 있습니다</p>
         </div>
@@ -117,7 +120,7 @@ const JobPostDetail = () => {
 
       return (
         <>
-          <p className="container-title">분석 결과</p>
+          <p className="container-title">역량 일치율 분석 결과</p>
           <div className="analyze-container">
             <div>
               <p>나와의 역량 일치율 : </p>
@@ -130,6 +133,95 @@ const JobPostDetail = () => {
       )
     }
   }
+
+
+  const displayJobContents = () => {
+    if (postData.isJob == 'job') {
+      return (
+        <>
+          <p className="container-title">공고 분석 결과</p>
+          <div className="job-contents-container">
+          {/* dummyJobData에서 postData의 jobContentsId 와 같은 항목의 title 출력 */}
+          {dummyJobData.map((jobContent) => (
+            jobContent.id === postData.jobContentsId &&
+            <div className="job-contents-wrapper">
+              <div className="job-title">
+                <p>{jobContent.title} 100%</p>
+              </div>
+            </div>
+          ))}
+          </div>
+        </>
+      )
+    }
+    else{
+      const selectedTasks:string [] = postData.tskContentsDict.tasks || [];
+      const jobData = dummyJob;
+      const taskData = dummyJobData.flatMap((jobContent) => jobContent.tasks) || [];
+
+      // 뤼튼이 만들어줌. 아직 이해는 못 함.
+      interface JobPercentage {
+        jobTitle: string;
+        percentage: number;
+      }
+      
+      const calculatePercentage = (selectedTasks: string[], tasks: TaskContents[], jobs:JobContents[]): { [key: string]: string } => {
+        // 사용자가 선택한 task가 속한 job의 개수를 계산
+        const selectedJobTitleCounts: Map<string, number> = new Map();
+        for (const job of jobs) {
+          for (const task of job.tasks) {
+            if (selectedTasks.includes(task.id)) {
+              const jobTitle = job.title;
+              selectedJobTitleCounts.set(jobTitle, (selectedJobTitleCounts.get(jobTitle) || 0) + 1);
+            }
+          }
+        }
+
+        // 전체 job의 개수를 계산
+        const totalJobTitleCounts: Map<string, number> = new Map();
+        for (const job of jobs) {
+          totalJobTitleCounts.set(job.title, (totalJobTitleCounts.get(job.title) || 0) + job.tasks.length);
+        }
+
+        // 각 job의 백분율을 계산 (0에서 1로 정규화)
+        const jobPercentages: JobPercentage[] = [];
+        for (const [jobTitle, selectedCount] of selectedJobTitleCounts.entries()) {
+          const totalCount = totalJobTitleCounts.get(jobTitle) || 0;
+          const percentage = totalCount !== 0 ? selectedCount / totalCount : 0;
+          jobPercentages.push({ jobTitle, percentage });
+        }
+
+        // 상위 3개의 job과 해당 백분율을 반환
+        const sortedJobPercentages = jobPercentages.sort((a, b) => b.percentage - a.percentage);
+        const top3Jobs = sortedJobPercentages.slice(0, 3);
+
+        // 백분율을 퍼센트 형식으로 변환
+        const resultWithPercent: { [key: string]: string } = {};
+        for (const { jobTitle, percentage } of top3Jobs) {
+          const percentageFormatted = (percentage * 100).toFixed(2);
+          resultWithPercent[jobTitle] = `${percentageFormatted}%`;
+        }
+
+        return resultWithPercent;
+      }
+      
+      const resultList = calculatePercentage(selectedTasks, taskData, jobData);
+
+      return (
+        <>
+          <p className="container-title">공고 분석 결과</p>
+          <div className="job-contents-wrapper">
+            <div className="job-title">
+              {Object.entries(resultList).map(([key, value]) => (
+                <p>{key} {value}</p>
+              ))}
+            </div>
+          </div>
+        </>
+      )
+    }
+  }
+
 
   return (
     <>
@@ -158,6 +250,7 @@ const JobPostDetail = () => {
         </div>
 
         {displayPercent()}
+        {displayJobContents()}
 
         <PostTSKList postData={postData} />
 
