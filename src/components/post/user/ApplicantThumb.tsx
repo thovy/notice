@@ -12,20 +12,20 @@ interface ChildComponentProps {
         career: number,
     };
     postData: Post | undefined;
+    similarity? : number;
 }
-const ApplicantThumb:React.FC<ChildComponentProps> = ({userData, postData}) => {
+const ApplicantThumb:React.FC<ChildComponentProps> = ({userData, postData, similarity}) => {
 
     const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
     const eduString = ['학력 무관', '고졸', '초대졸','대졸', '석사', '박사'];
 
   const analyzeResult = () => {
     if (!postData) return <></>
-    const rate = Math.round(postData.matchRate[userData.id] * 100)
 
     return (
       <>
         <h4>역량 일치율</h4>
-        <p>{rate} %</p>
+        <p>{similarity} %</p>
       </>
     )
   }

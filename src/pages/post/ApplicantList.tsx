@@ -1,7 +1,7 @@
 import React from 'react'
 import './ApplicantList.css'
 import { useNavigate, useParams } from 'react-router-dom';
-import { Post } from '../../components/post/dummyJob';
+import { JobContents, Post, dummyJob } from '../../components/post/dummyJob';
 import ApplicantThumb from '../../components/post/user/ApplicantThumb';
 
 const ApplicantList = () => {
@@ -20,6 +20,54 @@ const ApplicantList = () => {
 
     // 로그인 한 기업 정보
     const currentUserData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+
+    // 유사도 계산
+    const postList:Post[] = JSON.parse(localStorage.getItem('postListData') || '[]');
+    const jobData:JobContents[] = dummyJob;
+    const analyzePercent = (userData:any) => {
+        
+        if (!postData) return 0;
+        // 유저의 sk
+        const userSkills:string[] = userData.skills;
+        const userKnowledges:string[] = userData.knowledges;
+
+        // 게시글의 job 데이터
+        const currentJob = jobData.filter((jobContent) => jobContent.id === postData.jobContentsId);
+        // 게시글의 job에 포함된 sk 혹은 선택한 sk 데이터
+        const postSkills = postData.isJob == "job" 
+            ? currentJob.flatMap((jobContent) => jobContent.tasks.flatMap((task) => task.skills?.flatMap((skill)=>skill.id)) || []) || []
+            : postData.tskContentsDict.skills || [];
+        const postKnowledges = postData?.isJob == "job"
+            ? currentJob.flatMap((jobContent) => jobContent.tasks.flatMap((task) => task.knowledges?.flatMap((knowledge)=>knowledge.id)) || []) || []
+            : postData.tskContentsDict.knowledges || [];
+
+        // 공통적인 sk
+        // user 가 isEnt 일 때 userskills와 userKnowledges가 없어서 분리해줘야합니다.
+        const commonSkills:Set<string> = !userSkills
+            ? new Set()
+            : new Set(userSkills.filter((skill:string) => postSkills?.includes(skill)))
+
+        const commonKnowledges:Set<string> = !userKnowledges
+            ? new Set()
+            : new Set(userKnowledges.filter((knowledge:string) => postKnowledges?.includes(knowledge)))
+
+        // 공통 sk 갯수
+        const commonSkillsCount:number = commonSkills.size;
+        const commonKnowledgesCount:number = commonKnowledges.size;
+
+        // 게시글의 sk 합
+        const postSKlength = postSkills.length + postKnowledges.length;
+        
+        // 게시글의 sk 합이 0이 아니면 계산
+        const similarity:number = postSKlength == 0 ? 0 : (commonSkillsCount + commonKnowledgesCount) / (postSkills.length + postKnowledges.length) * 100;
+        
+        // localstorage에 저장된 게시글의 매칭율 업데이트
+        // jobdetail 에 사용하기 위함임.
+        postData.matchRate[userData.id] = similarity;
+        localStorage.setItem('postListData', JSON.stringify(postList));
+
+        return similarity;
+    }
 
 
     // 포스트데이터가 없거나, 로그인 유저가 없거나, 로그인유저와 포스트작성자가 다르다면
@@ -40,7 +88,11 @@ const ApplicantList = () => {
                 {!applicantList.length ? <p>지원자가 없습니다.</p> :
                 <>
                     {applicantList.map((applicant: any) => (
-                        <ApplicantThumb userData={applicant} postData={postData} />
+                        <ApplicantThumb 
+                            userData={applicant} 
+                            postData={postData}
+                            similarity={analyzePercent(applicant)}
+                        />
                     ))}
                 </>
                 }
