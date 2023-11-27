@@ -20,6 +20,46 @@ const JobPostList = () => {
     // 직무별보기에서 직무 선택 버튼
     const [selectedJob, setSelectedJob] = useState("-1")
 
+    // 전체 TSK 데이터
+
+    // 유저와 기업이 가진 sk를 비교해서 매칭율 계산
+    const analyzePercent = (postData:Post) => {
+        
+        // 유저의 sk
+        const userSkills:string[] = userData.skills;
+        const userKnowledges:string[] = userData.knowledges;
+
+        // 게시글의 job 데이터
+        const currentJob = jobData.filter((jobContent) => jobContent.id === postData.jobContentsId);
+        // 게시글의 job에 포함된 sk 혹은 선택한 sk 데이터
+        const postSkills = postData.isJob == "job" 
+            ? currentJob.flatMap((jobContent) => jobContent.tasks.flatMap((task) => task.skills?.flatMap((skill)=>skill.id)) || []) || []
+            : postData.tskContentsDict.skills || [];
+        const postKnowledges = postData.isJob == "job"
+            ? currentJob.flatMap((jobContent) => jobContent.tasks.flatMap((task) => task.knowledges?.flatMap((knowledge)=>knowledge.id)) || []) || []
+            : postData.tskContentsDict.knowledges || [];
+
+        // 공통적인 sk
+        const commonSkills:Set<string> = new Set(userSkills.filter((skill:string) => postSkills?.includes(skill)));
+        const commonKnowledges:Set<string> = new Set(userKnowledges.filter((knowledge:string) => postKnowledges?.includes(knowledge)));
+
+        // 공통 sk 갯수
+        const commonSkillsCount:number = commonSkills.size;
+        const commonKnowledgesCount:number = commonKnowledges.size;
+
+        // 게시글의 sk 합
+        const postSKlength = postSkills.length + postKnowledges.length;
+        
+        // 게시글의 sk 합이 0이 아니면 계산
+        const similarity:number = postSKlength == 0 ? 0 : (commonSkillsCount + commonKnowledgesCount) / (postSkills.length + postKnowledges.length) * 100;
+        
+        // localstorage에 저장된 게시글의 매칭율 업데이트
+        // jobdetail 에 사용하기 위함임.
+        postData.matchRate[userData.id] = similarity;
+        localStorage.setItem('postListData', JSON.stringify(postList));
+
+        return similarity;
+    }
 
     // 전체보기 / 직무별보기 선택에 따른 데이터 필터링
     const filteredPostList = useMemo(()=>{
@@ -33,7 +73,7 @@ const JobPostList = () => {
             if (userData.isEnt) return postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             // 유저가 있고 일반회원이라면 매칭율 높은 순
             else{
-                return postList.sort((a, b) => b.matchRate[userData.id] - a.matchRate[userData.id]);
+                return postList.sort((a, b) => analyzePercent(b) - analyzePercent(a));
             }
         }
         // 최신 순
@@ -115,8 +155,9 @@ const JobPostList = () => {
                 :filteredPostList.map((postData)=> (
                     // 게시글 미리보기 카드
                     // ispublic 이 true 인 postData만 보여주기
-                    postData.isPublic && <JobPostThumb postData={postData}/>
-                ))}
+                    postData.isPublic && <JobPostThumb postData={postData} similarity={analyzePercent(postData)} />
+                ))
+                }
             </div>
         </div>
     </>

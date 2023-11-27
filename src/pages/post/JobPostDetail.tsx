@@ -19,6 +19,16 @@ const JobPostDetail = () => {
   const postListData = JSON.parse(localStorage.getItem('postListData') || '[]');
   const postData: Post | undefined = postListData.find((post: Post) => post.id === Number(id));
 
+  // 포스트가 없다면
+  if (!postData) {
+    return <p>Post not found</p>;
+  }
+  
+  // 공개되지 않은 정보일 땐 로그인 유저를 확인하고 페이지를 로드할 지 말 지 정하기.
+  if(postData.isPublic === false && userData.account != postData.account){
+    return <p>Post is not public</p>
+  }
+
   // 경력, 학력
   const careerString = ['경력 무관', '신입', '경력'];
   const eduString = ['학력 무관', '고졸 이상', '초대졸 이상', '대졸 이상', '석사 이상', '박사 이상'];
@@ -32,16 +42,6 @@ const JobPostDetail = () => {
     else {
       return "- " + day
     }
-  }
-
-  // 포스트가 없다면
-  if (!postData) {
-    return <p>Post not found</p>;
-  }
-
-  // 공개되지 않은 정보일 땐 로그인 유저를 확인하고 페이지를 로드할 지 말 지 정하기.
-  if(postData.isPublic === false && userData.account != postData.account){
-    return <p>Post is not public</p>
   }
 
   const handleSubmit = () => {
@@ -101,7 +101,7 @@ const JobPostDetail = () => {
     }
   }
 
-  const analyzePercent = () => {
+  const displayPercent = () => {
     if (!userData || Object.keys(userData).length == 0) {return(
       <>
         <p className="container-title">분석 결과</p>
@@ -113,7 +113,7 @@ const JobPostDetail = () => {
     if (userData.isEnt) return <></>;
     else{
 
-      const rate:number = Math.round(postData.matchRate[userData.id] * 100)
+      const rate:number = postData.matchRate[userData.id]
 
       return (
         <>
@@ -157,7 +157,7 @@ const JobPostDetail = () => {
           </div>
         </div>
 
-        {analyzePercent()}
+        {displayPercent()}
 
         <PostTSKList postData={postData} />
 
