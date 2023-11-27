@@ -30,8 +30,8 @@ const Profile = () => {
     const userBookmarkList = useUserStore(state => state.bookmarkList);
 
     
-    const careerString = ['경력 무관', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
-    const eduString = ['학력 무관', '고졸', '초대졸', '대졸', '석사', '박사'];
+    const careerString = ['미기입', '신입', '경력 2년 이하', '경력 5년 이하', '경력 5년 이상', '경력 10년 이상'];
+    const eduString = ['미기입', '고졸', '초대졸', '대졸', '석사', '박사'];
 
     const userDetail = useMemo(() => {
         if (userIsEnt){
