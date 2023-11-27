@@ -253,14 +253,6 @@ const JobPosting: React.FC = () => {
                         />
                     </div>
                 </div>
-                {/* 분석결과 - tsk 를 선택했을 때만 표시 */}
-                <div className="analyze-result-container">
-                    {selectedButton === "tsk" ? 
-                    <div className="analyze-result">
-                        분석결과계산컴포넌트
-                    </div>
-                    : <></>}
-                </div>
 
                 {/* 공고 등록/취소 버튼 */}
                 <div className="posting-button-wrapper">
