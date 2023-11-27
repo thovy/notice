@@ -63,11 +63,20 @@ const SkRegist = () => {
         useUserStore.getState().handleSkills(selectedSK.skills);
         useUserStore.getState().handleKnowledges(selectedSK.knowledges);
 
+        // localStorage 업데이트
+        const userListData = JSON.parse(localStorage.getItem('userListData') || '[]')
+        const userData = userListData.find((user: any) => user.id === useUserStore.getState().id);
+        userData.skills = selectedSK.skills;
+        userData.knowledges = selectedSK.knowledges;
+        localStorage.setItem('userListData', JSON.stringify(userListData));
+
         // 이렇게 하는 게 맞나 싶습니다.
         // useUserStore.getState().setSkills(selectedSK.skills);
         // useUserStore.getState().setKnowledges(selectedSK.knowledges);
         // 저장한 뒤 저장에 성공하면 mypage로 이동
         window.history.back();
+        // 페이지 리로딩
+        window.location.reload();
 
     }
     catch (e){
