@@ -16,6 +16,7 @@ import { usePostListStore } from './store/PostStore';
 import Update from './pages/user/Update';
 import ApplicantList from './pages/post/ApplicantList';
 import ApplicantDetail from './pages/post/ApplicantDetail';
+import Notification from './pages/user/Notification';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
         <Route path="/profile" element={<Profile />}/>
         <Route path="/profile/sk" element={<SkRegist />}/>
         <Route path="/profile/edit" element={<Update />}/>
+        <Route path="/notification" element={<Notification />}/>
       </Routes>
     </BrowserRouter>
   );
