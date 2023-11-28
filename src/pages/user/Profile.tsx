@@ -38,18 +38,15 @@ const Profile = () => {
             return(
             <>
                 <div className="user-location">
-                    <p>기업 위치</p>
-                    <p>{userLocation}</p>
-                </div>
-
-                <div className="user-desc">
-                    <p>기업 소개</p>
-                    <p>{userCompanyDesc}</p>
+                    <p>기업 위치: {userLocation}</p>
                 </div>
 
                 <div className="user-url">
-                    <p>기업 URL</p>
-                    <p>{userCompanyUrl}</p>
+                    <p>기업 홈페이지 : {userCompanyUrl}</p>
+                </div>
+
+                <div className="user-desc">
+                    <p>기업 소개 : {userCompanyDesc}</p>
                 </div>
             </>
         )}
@@ -57,18 +54,15 @@ const Profile = () => {
             return (
             <>
                 <div className="user-location">
-                    <p>희망 근무지</p>
-                    <p>{userLocation}</p>
+                    <p>희망 근무지 : {userLocation}</p>
                 </div>
 
                 <div className="user-career">
-                    <p>경력</p>
-                    <p>{careerString[userCareer]}</p>
+                    <p>경력 : {careerString[userCareer]}</p>
                 </div>
 
                 <div className="user-edu">
-                    <p>학력</p>
-                    <p>{eduString[userEdu]}</p>
+                    <p>학력 : {eduString[userEdu]}</p>
                 </div>
             </>
         )}
@@ -99,17 +93,19 @@ const Profile = () => {
                     <div className="user-subtitle">
                         <div className="username">
                             <p>{userUsername} 님</p>
+                            <a href="/profile/edit"
+                                className='edit'
+                            >정보 수정</a>
                         </div>
                         <div className="info-button-wrapper">
-                            <button
-                                className="info-button"
-                                onClick={() => {window.location.href="/profile/edit"}}
-                            >정보 수정</button>
                             {userIsEnt?
                             <></>
                             :
-                            <a href="/profile/sk">
-                            <button className="skRegist">나의 기술/지식 수정</button>
+                            <a href="/profile/sk"
+                             className="skRegist">
+                                <button>
+                                    나의 기술/지식 수정
+                                </button>
                             </a>
                             }
                         </div>
@@ -117,7 +113,9 @@ const Profile = () => {
                     <div className="user-info-wrapper">
                         {/* {userDetail} */}
                         <div className="user-info">
-                            <p>아이디 : {userAccount}</p>
+                            <div className="user-account">
+                                <p>아이디 : {userAccount}</p>
+                            </div>
                             {userDetail}
                         </div>
                     </div>

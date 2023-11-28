@@ -107,7 +107,7 @@ const JobPostDetail = () => {
   const displayPercent = () => {
     if (!userData || Object.keys(userData).length == 0) {return(
       <>
-        <p className="container-title">역량 일치율 분석 결과</p>
+        <p className="container-title analyze-result">역량 일치율 분석 결과</p>
         <div className="analyze-container">
           <p>로그인 후 확인할 수 있습니다</p>
         </div>
@@ -120,7 +120,7 @@ const JobPostDetail = () => {
 
       return (
         <>
-          <p className="container-title">역량 일치율 분석 결과</p>
+          <p className="container-title analyze-result">역량 일치율 분석 결과</p>
           <div className="analyze-container">
             <div>
               <p>나와의 역량 일치율 : </p>
@@ -139,14 +139,15 @@ const JobPostDetail = () => {
     if (postData.isJob == 'job') {
       return (
         <>
-          <p className="container-title">공고 분석 결과</p>
-          <div className="job-contents-container">
+          <p className="container-title analyze-title">공고 분석 결과</p>
+          <div className="job-contents-wrapper">
           {/* dummyJobData에서 postData의 jobContentsId 와 같은 항목의 title 출력 */}
           {dummyJobData.map((jobContent) => (
             jobContent.id === postData.jobContentsId &&
-            <div className="job-contents-wrapper">
-              <div className="job-title">
-                <p>{jobContent.title} 100%</p>
+            <div className="job-title">
+              <div className="job-content-wrapper">
+                <p>{jobContent.title}</p>
+                <p className='value'>100%</p>
               </div>
             </div>
           ))}
@@ -198,7 +199,7 @@ const JobPostDetail = () => {
         // 백분율을 퍼센트 형식으로 변환
         const resultWithPercent: { [key: string]: string } = {};
         for (const { jobTitle, percentage } of top3Jobs) {
-          const percentageFormatted = (percentage * 100).toFixed(2);
+          const percentageFormatted = (percentage * 100).toFixed(0);
           resultWithPercent[jobTitle] = `${percentageFormatted}%`;
         }
 
@@ -209,11 +210,14 @@ const JobPostDetail = () => {
 
       return (
         <>
-          <p className="container-title">공고 분석 결과</p>
+          <p className="container-title analyze-title">공고 분석 결과</p>
           <div className="job-contents-wrapper">
             <div className="job-title">
               {Object.entries(resultList).map(([key, value]) => (
-                <p>{key} {value}</p>
+                <div className="job-content-wrapper">
+                  <p>{key}</p>
+                  <p className='value'>{value}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -226,49 +230,47 @@ const JobPostDetail = () => {
   return (
     <>
       <div className="post-container">
-        <div className="header-wrapper">
-          <p className="container-title">채용공고</p>
-          <button
-            onClick={() => window.history.back()}
-            className="go-list"
-          >목록으로</button>
-        </div>
-
-        <div className="post-title-container">
-          <div className="post-author">{postData.username}</div>
-          <div className="post-title">{postData.title}</div>
-          <div className="dday-apply-wrapper">
-            <div className="post-date">
-              {postData.startDate && postData.endDate ? 
-                `D ${dDay()}`
-                : <p>상시</p>}
-            </div>
-            <div className="apply-count">
-              <p>지원자 수: {postData.applicantId.length}</p>
+        <div className="post-side-wrapper">
+          <div className="post-title-container">
+            <div className="post-author">{postData.username}</div>
+            <div className="post-title">{postData.title}</div>
+            <div className="dday-apply-wrapper">
+              <div className="post-date">
+                {postData.startDate && postData.endDate ? 
+                  `D ${dDay()}`
+                  : <p>상시</p>}
+              </div>
+              <div className="apply-count">
+                <p>지원자 수: {postData.applicantId.length}</p>
+              </div>
             </div>
           </div>
+
+          {displayPercent()}
+          <div className="submit-container">
+            {handleApply()}
+          </div>
         </div>
+        <div className="post-contents-wrapper">
+          {displayJobContents()}
 
-        {displayPercent()}
-        {displayJobContents()}
+          <PostTSKList postData={postData} />
 
-        <PostTSKList postData={postData} />
+          <p className="container-title">자격 요건</p>
+          <div className="post-basic-container">
+            <p>{careerString[postData.career]}</p>
+            <p>{eduString[postData.edu]}</p>
+          </div>
 
-        <p className="container-title">자격 요건</p>
-        <div className="post-basic-container">
-          <p>{careerString[postData.career]}</p>
-          <p>{eduString[postData.edu]}</p>
+          <p className="container-title">기타 공고 내용</p>
+          <div className="post-etc-container">
+            <p>{postData.etcContents}</p>
+          </div>
+
+          <div className="submit-container bottom-submit">
+            {handleApply()}
+          </div>
         </div>
-
-        <p className="container-title">기타 공고 내용</p>
-        <div className="post-etc-container">
-          <p>{postData.etcContents}</p>
-        </div>
-
-        <div className="submit-container">
-          {handleApply()}
-        </div>
-
       </div>
     </>
   )

@@ -99,13 +99,23 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             >{button.toUpperCase()}</button>
         ))}
     </div>
+    <div className="apply-bookmark-title">
+        {selectedButton === 'apply' ? 
+            <div className="container-title">
+                <p>지원한 공고 목록</p>
+            </div>
+            :<div className="container-title">
+                <p>북마크한 공고 목록</p>
+            </div>  
+        }
+    </div>
     <div className="list-container">
         <table>
             <thead>
                 <tr>
                     <th>공고 제목</th>
-                    <th>상태</th>
                     <th>업무 역량 일치율</th>
+                    <th>상태</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,9 +126,9 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
                         className='post-list-tbody'
                     >
                         <td>{content.title}</td>
+                        <td>{content.matchRate[userId]} %</td>
                         <td>{isPass(content)}</td>
                         {/* <td>{matchRate(content)}</td> */}
-                        <td>{content.matchRate[userId]}</td>
 
                     </tr>
                 ))}

@@ -18,11 +18,11 @@ const Header = () => {
     } else {
       return (
         <>
-        <div className="header-notification">
-          <a href="/notification">🔔</a>
-        </div>
         <div className="header-username">
           <a href="/profile">{username} 님</a>
+        </div>
+        <div className="header-notification">
+          <a href="/notification">🔔</a>
         </div>
         <button onClick={()=>{
           sessionStorage.clear();
@@ -46,10 +46,11 @@ const Header = () => {
           </div>
           <div className="header-menu-wrapper">
             <div className="header-menu">
-              <a href="/job">채용공고</a>
-            </div>
-            <div className="header-menu">
-              직무분석
+              <a href="/job">
+                <p>
+                  채용공고
+                </p>
+              </a>
             </div>
           </div>
             <div className="header-user">

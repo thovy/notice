@@ -70,17 +70,14 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
         // 로그인 안된 사용자는 확인할 수 없음
         if (!userData || Object.keys(userData).length == 0) return (
             <>
-                <h4>역량 일치율</h4>
                 <p>로그인 후 확인할 수 있습니다</p>
             </>
         )
         // 로그인 후 
         if (userData && !userData.isEnt) {
-
             return (
                 <>
-                    <h4>역량 일치율</h4>
-                    <p>{similarity} %</p>
+                    <p>역량 일치율: <span>{similarity}</span> %</p>
                 </>
             )
         }
@@ -104,34 +101,39 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
                         {isBookmarked}
                     </div>
                 </div>
-                <div className="title-wrapper">
+                <div className="title-wrapper post-title">
                     <p>{postData.title}</p>
                 </div>
-            </div>
-            <div className="post-basic-wrapper">
-                <div className="newbie">
-                    <p>{careerString[postData.career]}</p>
-                </div>
-                <div className="school">
-                    <p>{eduString[postData.edu]}</p>
-                </div>
-                {postData.startDate && postData.endDate ?
-                <div className="date">
-                    <p>{formatDate(postData.startDate)}</p>
-                    <p>~</p>
-                    <p>{formatDate(postData.endDate)}</p>
-                </div>
-                :
-                <div className="date">
-                    <p>상시모집</p>
-                </div>
-                }
             </div>
             <div className="post-analyze-container">
                 <div className="analyze-wrapper">
                     <div className="analyze-result">
                         {analyzeResult()}
                     </div>
+                </div>
+            </div>
+            <div className="post-basic-wrapper">
+                <div className="post-basic">
+                    {/* 경력 */}
+                    <div className="newbie">
+                        <p>{careerString[postData.career]}</p>
+                    </div>
+                    {/* 학력 */}
+                    <div className="school">
+                        <p>{eduString[postData.edu]}</p>
+                    </div>
+                </div>
+                <div className="post-date">
+                    {/* 공고기간 */}
+                    {postData.startDate && postData.endDate ?
+                    <div className="date">
+                        <p>~ {formatDate(postData.endDate)}</p>
+                    </div>
+                    :
+                    <div className="date">
+                        <p>상시모집</p>
+                    </div>
+                    }
                 </div>
             </div>
         </div>

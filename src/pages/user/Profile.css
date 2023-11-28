@@ -2,7 +2,7 @@
 
 .main-profile-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1130px;
     margin: 0 auto;
     padding: 100px 20px 20px 20px;
     box-sizing: border-box;
@@ -15,25 +15,38 @@
   }
   
   .container-title-wrapper p {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     margin: 0;
   }
   
   .user-info-container {
     display: flex;
-    flex-direction: column;
   }
   
   .user-detail-wrapper {
-    flex: 1;
-    border-right: 1px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--main-color-rate8);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
   }
   
+  .user-detail-wrapper button{
+    background-color: #ffffff;
+    color: var(--main-color);
+    border: 1px solid var(--main-color-rate8);
+  }
+
   .username {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
   
   .user-subtitle {
@@ -41,8 +54,9 @@
     font-weight: bold;
     margin-bottom: 10px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
   }
   
   .user-info-wrapper {
@@ -63,14 +77,24 @@
     display: flex;
     align-items: center;
   }
-  
-  .info-button-wrapper button {
-    margin-right: 10px;
+
+  .info-button-wrapper a{
+    text-decoration: none;
+    color: #888888;
   }
-  
-  
+
   .user-post-wrapper {
     flex: 1;
+  }
+
+  .skRegist {
+
+  }
+
+  .edit {
+    color: #888888;
+    text-decoration: none;
+    font-size: 10px;
   }
   
   .ab-list-container {

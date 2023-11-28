@@ -68,14 +68,14 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
         {/* 선택된 직무에 속한 task/skill/knowledge */}
         <div className="job-tsk-container">
             {/* tsk 선택 버튼 */}
-            <div className="tsk-button-container">
+            {/* <div className="tsk-button-container">
                 {tskbuttonlist.map((button) => (
                     <button
                         onClick={() => selectItemType(button as "tasks" | "skills" | "knowledges")}
                         className={selectedItemType === button ? 'active' : ''}
                     >{button.toUpperCase()}</button>
                     ))}
-            </div>
+            </div> */}
             {/* tsk 에 속한 내용 */}
             <div className="tsk-list-wrapper">
                 {selectedJobContents && (

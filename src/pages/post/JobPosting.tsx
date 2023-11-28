@@ -179,7 +179,7 @@ const JobPosting: React.FC = () => {
                             setPostingData({...postingData, isJob: 'tsk'})
                         }}
                         className={selectedButton === "tsk" ? "active" : ""}
-                    >업무/스킬/지식 선택</button>
+                    >업무 선택</button>
                 </div>
                 {/* 직무/TSK 선택 컴포넌트 - 버튼에 따라 다른 표시*/}
                 <div className='job-tsk-contents-container'>

@@ -78,17 +78,17 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
   return (
     <>
       {/* TSK 선택 버튼 */}
-      <div className="tsk-button-container">
+      {/* <div className="tsk-button-container">
         {tskbuttonlist.map((button) => (
           <button
             onClick={() => setSelectedItemType(button)}
             className={selectedItemType === button ? 'active' : ''}
           >{button.toUpperCase()}</button>
         ))}
-      </div>
+      </div> */}
 
       {/* task category 선택 drop down menu */}
-      <div className="task-drop-down-wrapper drop-down-wrapper">
+      {/* <div className="task-drop-down-wrapper drop-down-wrapper">
         <select
           className="task-drop-down"
           onChange={(e) => {
@@ -96,7 +96,6 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
             setSelectedCategory(String(e.target.value));
           }}
         >
-          {/* 12개의 카테고리 선택 메뉴 */}
           <option value="-1">카테고리 전체보기</option>
           <option key={1} value="카테고리 1">카테고리 1</option>
           <option key={2} value="카테고리 2">카테고리 2</option>
@@ -111,7 +110,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
           <option key={11} value="카테고리 11">카테고리 11</option>
           <option key={12} value="카테고리 12">카테고리 12</option>
         </select>
-      </div>
+      </div> */}
 
 
       {/* 항목 리스트 컨테이너 */}

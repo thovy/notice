@@ -14,7 +14,6 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>이름</th>
                 <th>설명</th>
               </tr>
@@ -22,7 +21,6 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
             <tbody>
               {tsk.map((t: any) => (
                 <tr key={t.id}>
-                  <td>{t.id}</td>
                   <td>{t.title}</td>
                   <td>{t.description}</td>
                 </tr>
@@ -46,19 +44,19 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
             <div className="detail-table-wrapper">
                 { tasks?<>
                 <div className="detail-table">
-                    <h1>주요업무</h1>
+                    <p className="container-title">주요업무</p>
                     {spreadTSK(tasks)}
                 </div>
                 </>:<></> }
                 { skills?<>
                 <div className="detail-table">
-                    <h1>요구 스킬</h1>
+                    <p className="container-title">요구스킬</p>
                     {spreadTSK(skills)}
                 </div>
                 </> : <></> }
                 { knowledge?<>
                 <div className="detail-table">
-                    <h1>요구 지식</h1>
+                    <p className="container-title">요구지식</p>
                     {spreadTSK(knowledge)}
                 </div>
                 </> : <></> }
@@ -166,19 +164,19 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
             <div className="detail-table-wrapper">
                 { tasks?<>
                 <div className="detail-table">
-                    <h1>주요업무</h1>
+                <p className="container-title">주요업무</p>
                     {spreadTSK(tasks)}
                 </div>
                 </>:<></> }
                 { skills?<>
                 <div className="detail-table">
-                    <h1>요구 스킬</h1>
+                    <p className="container-title">요구스킬</p>
                     {spreadTSK(skills)}
                 </div>
                 </> : <></> }
                 { knowledges?<>
                 <div className="detail-table">
-                    <h1>요구 지식</h1>
+                    <p className="container-title">요구지식</p>
                     {spreadTSK(knowledges)}
                 </div>
                 </> : <></> }
