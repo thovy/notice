@@ -2,20 +2,20 @@
   {
     "id":1,
     "account":"test",
-    "username":"test",
+    "username":"김도현",
     "isEnt":false,
     "location":"서울",
     "career":1,
     "edu":2,
-    "applyList":[],
-    "bookmarkList":[],
+    "applyList":[1],
+    "bookmarkList":[2],
     "skills":["S0003","S0004"],
     "knowledges":["K0001","K0002","K0003"]
   },
   {
     "id":2,
     "account":"enttest",
-    "username":"(주)test",
+    "username":"(주)네이버",
     "isEnt":true,
     "location":"대구",
     "career":null,
@@ -30,12 +30,12 @@
   {
     "id":3,
     "account":"test03",
-    "username":"test",
+    "username":"임정인",
     "isEnt":false,
     "location":"부산",
     "career":3,
     "edu":3,
-    "applyList":[],
+    "applyList":[1],
     "bookmarkList":[],
     "skills":["S0001","S0002"],
     "knowledges":["K0003","K0004","K0001"]
@@ -43,7 +43,7 @@
   {
     "id":4,
     "account":"ent04",
-    "username":"test22(주)",
+    "username":"비바리퍼블리카(주)",
     "isEnt":true,
     "location":"광주",
     "career":null,
@@ -58,12 +58,12 @@
   {
     "id":5,
     "account":"test05",
-    "username":"test",
+    "username":"홍여경",
     "isEnt":false,
     "location":"인천",
     "career":1,
     "edu":1,
-    "applyList":[],
+    "applyList":[1],
     "bookmarkList":[],
     "skills":["S0002","S0003"],
     "knowledges":["K0001","K0002","K0003"]
@@ -71,7 +71,7 @@
   {
     "id":6,
     "account":"ent06",
-    "username":"(주)test",
+    "username":"(주)아마존",
     "isEnt":true,
     "location":"대전",
     "career":null,
@@ -86,12 +86,12 @@
   {
     "id":7,
     "account":"test07",
-    "username":"test",
+    "username":"장주언",
     "isEnt":false,
     "location":"울산",
     "career":3,
     "edu":2,
-    "applyList":[],
+    "applyList":[1],
     "bookmarkList":[],
     "skills":["S0003","S0004"],
     "knowledges":["K0003","K0004","K0001"]
@@ -99,7 +99,7 @@
   {
     "id":8,
     "account":"ent08",
-    "username":"test(주)",
+    "username":"인텔(주)",
     "isEnt":true,
     "location":"세종",
     "career":null,
@@ -114,12 +114,12 @@
   {
     "id":9,
     "account":"test09",
-    "username":"test",
+    "username":"나상원",
     "isEnt":false,
     "location":"경기",
     "career":1,
     "edu":3,
-    "applyList":[],
+    "applyList":[1],
     "bookmarkList":[],
     "skills":["S0003","S0004"],
     "knowledges":["K0001","K0002","K0003"]
@@ -127,7 +127,7 @@
   {
     "id":10,
     "account":"ent10",
-    "username":"(주)test",
+    "username":"(주)구글",
     "isEnt":true,
     "location":"강원",
     "career":null,
@@ -138,5 +138,31 @@
     "knowledges":null,
     "companyDescription":"회사 설명입니다.",
     "companyUrl":"http://example.com"
+  },
+  {
+    "id":11,
+    "account":"test11",
+    "username":"안지혜",
+    "isEnt":false,
+    "location":"경기",
+    "career":1,
+    "edu":3,
+    "applyList":[1],
+    "bookmarkList":[],
+    "skills":["S0004"],
+    "knowledges":["K0001","K0002"]
+  },
+  {
+    "id":12,
+    "account":"test12",
+    "username":"나상원",
+    "isEnt":false,
+    "location":"경기",
+    "career":1,
+    "edu":3,
+    "applyList":[1],
+    "bookmarkList":[],
+    "skills":["S0003","S0004"],
+    "knowledges":["K0001"]
   }
 ]
