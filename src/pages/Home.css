@@ -1,5 +1,7 @@
 .main-home-container{
-    padding: 100px 20px 20px 20px;
+    /* padding: 100px 20px 20px 20px; */
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .post-list-title-container {
@@ -23,16 +25,26 @@
   }
   
   .main-desc-container {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px; */
   }
   
   .main-desc-word {
-    flex: 1;
-    padding: 20px;
-    background-color: #f2f2f2;
+    /* flex: 1; */
+    /* padding: 20px; */
+    /* background-color: #f2f2f2; */
     /* 다른 스타일링 속성 추가 가능 */
+  }
+  .main-desc-word {
+    
+    position: absolute;
+    width: 1081px;
+    transform: translate(0px, -140px);
+    background-color: rgba(255,255,255,0.8);
+    height: 100px;
+    text-align: end;
+    padding: 20px 10px;
   }
   
   .main-title {
@@ -40,13 +52,13 @@
     font-weight: bold;
     margin-bottom: 10px;
   }
+  .main-title p {
+    margin: 0;
+  }
   
   .main-desc {
     /* 다른 스타일링 속성 추가 가능 */
-  }
-  
-  .post-list-container {
-    margin-bottom: 20px;
+    font-size: 16px;
   }
   
   .title-wrapper {

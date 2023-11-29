@@ -8,21 +8,22 @@ interface Props {
 const PostTSKList:React.FC<Props> = ({ postData }) => {
 
     const jobData:JobContents[] = dummyJob;
-    const spreadTSK = (tsk: any) => {
+
+    const spreadTSK = (tsk:any, string:string) => {
         if (tsk.length === 0) return <></>;
         return (
           <table>
             <thead>
               <tr>
-                <th>이름</th>
-                <th>설명</th>
+                {/* <th>이름</th> */}
+                <th>{string}</th>
               </tr>
             </thead>
             <tbody>
               {tsk.map((t: any) => (
                 <tr key={t.id}>
                   <td>{t.title}</td>
-                  <td>{t.description}</td>
+                  {/* <td>{t.description}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -44,20 +45,20 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
             <div className="detail-table-wrapper">
                 { tasks?<>
                 <div className="detail-table">
-                    <p className="container-title">주요업무</p>
-                    {spreadTSK(tasks)}
+                    {/* <p className="container-title">주요업무</p> */}
+                    {spreadTSK(tasks, '주요업무')}
                 </div>
                 </>:<></> }
                 { skills?<>
                 <div className="detail-table">
-                    <p className="container-title">요구스킬</p>
-                    {spreadTSK(skills)}
+                    {/* <p className="container-title">요구스킬</p> */}
+                    {spreadTSK(skills, "요구스킬")}
                 </div>
                 </> : <></> }
                 { knowledge?<>
                 <div className="detail-table">
-                    <p className="container-title">요구지식</p>
-                    {spreadTSK(knowledge)}
+                    {/* <p className="container-title">요구지식</p> */}
+                    {spreadTSK(knowledge, "요구지식")}
                 </div>
                 </> : <></> }
             </div>
@@ -164,20 +165,20 @@ const PostTSKList:React.FC<Props> = ({ postData }) => {
             <div className="detail-table-wrapper">
                 { tasks?<>
                 <div className="detail-table">
-                <p className="container-title">주요업무</p>
-                    {spreadTSK(tasks)}
+                {/* <p className="container-title">주요업무</p> */}
+                    {spreadTSK(tasks, '주요업무')}
                 </div>
                 </>:<></> }
                 { skills?<>
                 <div className="detail-table">
-                    <p className="container-title">요구스킬</p>
-                    {spreadTSK(skills)}
+                    {/* <p className="container-title">요구스킬</p> */}
+                    {spreadTSK(skills, "요구스킬")}
                 </div>
                 </> : <></> }
                 { knowledges?<>
                 <div className="detail-table">
-                    <p className="container-title">요구지식</p>
-                    {spreadTSK(knowledges)}
+                    {/* <p className="container-title">요구지식</p> */}
+                    {spreadTSK(knowledges, "요구지식")}
                 </div>
                 </> : <></> }
             </div>

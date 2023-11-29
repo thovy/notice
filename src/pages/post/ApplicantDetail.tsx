@@ -37,7 +37,7 @@ const ApplicantDetail = () => {
           <tr>
             <th>ID</th>
             <th>이름</th>
-            <th>설명</th>
+            {/* <th>설명</th> */}
           </tr>
         </thead>
         <tbody>
@@ -45,7 +45,7 @@ const ApplicantDetail = () => {
             <tr key={t.id}>
               <td>{t.id}</td>
               <td>{t.title}</td>
-              <td>{t.description}</td>
+              {/* <td>{t.description}</td> */}
             </tr>
           ))}
         </tbody>

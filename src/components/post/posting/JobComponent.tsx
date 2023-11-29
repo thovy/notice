@@ -59,11 +59,11 @@ const JobComponent: React.FC<ChildComponentProps> = ({ onJobSelected, jobData })
         </div>
 
         {/* 선택된 직무에 대한 설명 */}
-        <div className="job-desc-wrapper">
+        {/* <div className="job-desc-wrapper">
             {selectedJobContents && 
                 <p>{selectedJobContents.description}</p>
             }
-        </div>
+        </div> */}
 
         {/* 선택된 직무에 속한 task/skill/knowledge */}
         <div className="job-tsk-container">

@@ -114,7 +114,7 @@ const ApplyContentsList:React.FC<ChildApplyComponent> = ({ userId }) => {
             <thead>
                 <tr>
                     <th>공고 제목</th>
-                    <th>업무 역량 일치율</th>
+                    <th>업무 직무 적합도</th>
                     <th>상태</th>
                 </tr>
             </thead>

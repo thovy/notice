@@ -10,7 +10,7 @@ const JobContentsList = ( {items}:any ) => {
                 <tr>
                     <th>ID</th>
                     <th>이름</th>
-                    <th>설명</th>
+                    {/* <th>설명</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +18,7 @@ const JobContentsList = ( {items}:any ) => {
                     <tr key={item.id}>
                         <td>{item.id}</td>
                         <td>{item.title}</td>
-                        <td>{item.description}</td>
+                        {/* <td>{item.description}</td> */}
                     </tr>
                 ))}
             </tbody>

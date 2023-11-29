@@ -5,6 +5,7 @@
     padding: 15px 0px;
     position: fixed;
     z-index: 999;
+    box-shadow: 0px 2px 4px 0 hsla(0,0%,80%,.8);
 }
 
 /* 헤더 래퍼 */
@@ -42,9 +43,16 @@
     margin: 0px
 }
 
+.header-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .header-menu a {
-    color: #000000;
+    color: #4a4a4a;
     text-decoration: none;
+    font-size: 18px;
 }
 
 /* 사용자 */
@@ -54,25 +62,28 @@
     background-color: #ffffff;
     border: 1px solid var(--main-color-rate8);
     color: var(--main-color);
+    border-radius: 8px;
+    padding: 4px 12px;
 }
 
 .header-user {
     display: flex;
     align-items: center;
+    gap:10px;
 }
 
 .header-user a {
-    color: #000000;
+    color: #4a4a4a;
     text-decoration: none;
 }
 
 .header-username {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    margin-right: 20px;
+    /* margin-right: 20px; */
 }
 
 .header-notification {
-    font-size: 18px;
-    margin-right: 15px;
+    font-size: 11px;
+    /* margin-right: 15px; */
 }

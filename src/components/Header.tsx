@@ -19,7 +19,7 @@ const Header = () => {
       return (
         <>
         <div className="header-username">
-          <a href="/profile">{username} 님</a>
+          <a href="/profile">{username}님</a>
         </div>
         <div className="header-notification">
           <a href="/notification">🔔</a>
@@ -46,6 +46,11 @@ const Header = () => {
           </div>
           <div className="header-menu-wrapper">
             <div className="header-menu">
+              <a href="/">
+                <p>
+                  홈
+                </p>
+              </a>
               <a href="/job">
                 <p>
                   채용공고

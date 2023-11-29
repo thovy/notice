@@ -51,7 +51,11 @@ const JobPostDetail = () => {
     //localstorage에 있는 postListData.applicantId 에 userData.id추가, userListData.applyList 에 postData.id추가
     // 지원하기 버튼을 누르면 지원자 목록에 추가되고, 지원자가 지원한 공고 목록에 추가되어야 함.
     console.log(postData.applicantId);
+
+    // 지원할 것인지 안 할 것인지 confirm 띄우기
+    const submitResult = window.confirm(`${userData.username}님의 직무적합도는 ${postData.matchRate[userData.id]}% 입니다. 지원하시겠습니까?`);
     
+    if (submitResult) {
     postData.applicantId.push(userData.id);
     localStorage.setItem('postListData', JSON.stringify(postListData));
 
@@ -62,9 +66,10 @@ const JobPostDetail = () => {
 
     sessionStorage.clear();
     sessionStorage.setItem('userData', JSON.stringify(modifyUser));
-    
+
     alert('지원이 완료되었습니다.');
     window.location.reload();
+    }
   }
 
   const handleApply = () => {
@@ -107,7 +112,7 @@ const JobPostDetail = () => {
   const displayPercent = () => {
     if (!userData || Object.keys(userData).length == 0) {return(
       <>
-        <p className="container-title analyze-result">역량 일치율 분석 결과</p>
+        <p className="container-title analyze-result">직무 적합도 분석 결과</p>
         <div className="analyze-container">
           <p>로그인 후 확인할 수 있습니다</p>
         </div>
@@ -120,10 +125,10 @@ const JobPostDetail = () => {
 
       return (
         <>
-          <p className="container-title analyze-result">역량 일치율 분석 결과</p>
+          <p className="container-title analyze-result">직무 적합도 분석 결과</p>
           <div className="analyze-container">
             <div>
-              <p>나와의 역량 일치율 : </p>
+              <p>나와의 직무 적합도 : </p>
             </div>
             <div className="rate">
               <p> {rate} %</p>

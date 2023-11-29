@@ -77,7 +77,7 @@ const JobPostThumb:React.FC<ChildComponentProps> = ({postData, similarity}) => {
         if (userData && !userData.isEnt) {
             return (
                 <>
-                    <p>역량 일치율: <span>{similarity}</span> %</p>
+                    <p>직무 적합도: <span>{similarity}</span> %</p>
                 </>
             )
         }

@@ -36,6 +36,7 @@
     font-size: 12px;
     margin: 0px;
     color: #888888;
+    font-weight: 800;
 }
 
 .go-bookmark p{
@@ -49,6 +50,7 @@
 
 .post-title p{
     margin: 0px;
+    font-size: 15px !important;
 }
 
 /* 기본 정보 */

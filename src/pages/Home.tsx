@@ -16,16 +16,16 @@ const Home = () => {
     // 유저가 없으면 그냥 최신순
     if (!userData || Object.keys(userData).length == 0) {
       const result = postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      return result.slice(0, 3);
+      return result.slice(0, 4);
     };
     // 유저가 있지만 기업이라면 그냥 최신순
     if (userData.isEnt) {
       const result = postList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      return result.slice(0, 3);}
+      return result.slice(0, 4);}
     // 유저가 있고 일반회원이라면 매칭율 높은 순
     else{
       const result = postList.sort((a, b) => b.matchRate[userData.id] - a.matchRate[userData.id]);
-      return result.slice(0, 3);
+      return result.slice(0, 4);
     }
   }, [postList, userData])
 
@@ -95,7 +95,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="post-list-container">
+          <div className="post-list-container-home">
             <div className="post-list-title-container">
               <div className="title-wrapper">
                 <p>채용공고 리스트</p>

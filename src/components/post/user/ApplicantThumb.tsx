@@ -24,7 +24,7 @@ const ApplicantThumb:React.FC<ChildComponentProps> = ({userData, postData, simil
 
     return (
       <>
-        <h4>역량 일치율</h4>
+        <h4>직무 적합도</h4>
         <p>{similarity} %</p>
       </>
     )

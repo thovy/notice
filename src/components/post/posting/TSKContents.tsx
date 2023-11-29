@@ -127,7 +127,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
                     <th>선택</th>
                     <th>ID</th>
                     <th>이름</th>
-                    <th>설명</th>
+                    {/* <th>설명</th> */}
                 </tr>
               </thead>
               <tbody className="selected-list">
@@ -161,7 +161,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
                     </td>
                     <td>{id}</td>
                     <td>{contents.find((content) => content.id === id)?.title}</td>
-                    <td>{contents.find((content) => content.id === id)?.description}</td>
+                    {/* <td>{contents.find((content) => content.id === id)?.description}</td> */}
                   </tr>
                 ))}
               </tbody>
@@ -181,7 +181,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
                       <th>선택</th>
                       <th>ID</th>
                       <th>이름</th>
-                      <th>설명</th>
+                      {/* <th>설명</th> */}
                   </tr>
                 </thead>
                 <tbody className="unselected-list">
@@ -205,7 +205,7 @@ const TSKContents: React.FC<ChildComponentProps> = ({ onJobSelected, jobData }) 
                       </td>
                       <td>{content.id}</td>
                       <td>{content.title}</td>
-                      <td>{content.description}</td>
+                      {/* <td>{content.description}</td> */}
                     </tr>
                   ))}
                 </tbody>
